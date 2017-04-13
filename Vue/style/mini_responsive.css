@@ -1,0 +1,24 @@
+.gauche
+{
+    float: left;
+}
+
+.droite
+{
+    float: right;
+}
+
+.large_100
+{
+    width: 100%;
+}
+
+.large_65
+{
+    width: 65%;
+}
+
+.large_33
+{
+    width: 33%;
+}
