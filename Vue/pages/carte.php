@@ -1,28 +1,55 @@
+<h1></h1>
+<section id="carte" class="<?php if (ROLE == $roles["Consultant"]) print 'large_100'; else print 'large_66'; ?> gauche fond-listique">
+
+</section>
 <?php
-	print '<h1>'. '</h1>';
-	print '<section id="carte" class="large_65 gauche">';
+    if (ROLE == $roles["Admin"]) print
+        '<div class="large_33 gauche">
+            <section id="edition">
+                <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_fils" value="Ajouter un fils"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_frere" value="Ajouter un frère"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="modifier" value="Modifier"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer" value="Supprimer"/>
+            </section>
+            <section id="administration">
+                <table class="large_100">
+                    <tr>
+                        <td/><td>Autoriser édition</td><td>Retirer partage</td>
+                    </tr>
+        
+                    <tr><!--ligne de gestion des droits pour un utilisateur-->
+                        <td>Pseudo</td>
+                        <td class="centre"><input class="arrondi fond-violet" type="checkbox" name="autoriser_edition"/></td>
+                        <td class="centre"><input class="arrondi fond-violet" type="radio" name="retirer_partage"/></td>
+                    </tr>
+                </table>
+                <input class="champ large_50 arrondi" type="text" name="saisie_pseudo_partage"/>
+                <input class="champ large_50 arrondi fond-violet droite" type="button" name="champ_pseudo_partage" value="Partager"/>
+                <input class="champ large_50 arrondi" type="text" name="saisie_nom_carte"/>
+                <input class="champ large_50 arrondi fond-violet droite" type="button" name="champ_nom_carte" value="Renommer"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer_carte" value="Supprimer carte"/>
+            </section>
+        </div>';
 
-	print '</section>';
-	print '<div class="large_33 gauche">';
-        print '<section id="edition">';
-            print '<input class="large_100 arrondi fond-rose" type="button" name="ajouter_fils" value="Ajouter un fils"/>';
-            print '<input class="large_100 arrondi fond-rose" type="button" name="ajouter_frere" value="Ajouter un frère"/>';
-            print '<input class="large_100 arrondi fond-rose" type="button" name="modifier" value="Modifier"/>';
-            print '<input class="large_100 arrondi fond-rose" type="button" name="supprimer" value="Supprimer"/>';
-        print '</section>';
-        print '<section id="administration">';
-            print '<table class="large_100">';
-                print '<tr>';
-                    print '<td/><td>Autoriser édition</td><td>Retirer partage</td>';
-                print '</tr>';
-
-                print '<tr>';
-                    print '<td>'.'</td>';
-                    print '<td><input class="arrondi fond-rose" type="checkbox" name="autoriser_edition"/></td>';
-                    print '<td><input class="arrondi fond-rose" type="radio" name="retirer_partage"/></td>';
-                print '</tr>';
-
-            print '</table>';
-        print '</section>';
-	print '</div>';
+    if (ROLE == $roles["Editeur"]) print
+        '<div class="large_33 gauche">
+            <section id="edition">
+                <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_fils" value="Ajouter un fils"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_frere" value="Ajouter un frère"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="modifier" value="Modifier"/>
+                <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer" value="Supprimer"/>
+            </section>
+            <section id="administration">
+                <table class="large_100">
+                    <tr>
+                        <td/><td>Droit d’édition</td>
+                    </tr>
+        
+                    <tr><!--ligne de visualisation des droits pour un utilisateur-->
+                        <td>Pseudo</td>
+                        <td class="centre"><input class="arrondi fond-violet" disabled="disabled" type="checkbox" name="autoriser_edition"/></td>
+                    </tr>
+                </table>
+            </section>
+        </div>';
 ?>
