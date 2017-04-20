@@ -1,5 +1,4 @@
 <?php
-    include "connexion.php";
 
     /**
      * Génération de la requête de sélection (SELECT) AVEC une condition (WHERE)
