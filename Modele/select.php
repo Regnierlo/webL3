@@ -50,7 +50,7 @@
                 while ($donees = $reponse->fetch()) {
                     //Pour tous les champs sélectionnés
                     for($i=0;$i<$size;$i++)
-                        $res.=$donees[$selection[$i]].' ';//On ajoute le résultat du champs à la chaine résultante
+                        $res.=$donees[$selection[$i]].'|';//On ajoute le résultat du champs à la chaine résultante
                     $res.='<br/>';//On va a la ligne pour une nouvelle entrée (nouvelle ligne de la requete)
                 }
 
@@ -110,7 +110,7 @@
                 while ($donees = $reponse->fetch()) {
                     //Pour tous les champs sélectionnés
                     for($i=0;$i<$size;$i++)
-                        $res.=$donees[$selection[$i]].' ';//On ajoute le résultat du champs à la chaine résultante
+                        $res.=$donees[$selection[$i]].'|';//On ajoute le résultat du champs à la chaine résultante
                     $res.='<br/>';//On va a la ligne pour une nouvelle entrée (nouvelle ligne de la requete)
                 }
 
