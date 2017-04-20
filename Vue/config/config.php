@@ -19,5 +19,5 @@
 	//temporaire pour les tests
 	//$_SESSION["template"]["connecte"] = false;
 	//$_SESSION["template"]["page"] = $pages["Accueil"];
-	//$_SESSION["template"]["role"] = $roles["Consultant"];
+	//$_SESSION["template"]["role"] = $roles["Admin"];
 ?>

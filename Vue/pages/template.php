@@ -15,5 +15,6 @@
         <script type="text/javascript" src="scripts/jquery.js"></script>
         <script type="text/javascript" src="scripts/ajax.js"></script>
         <script type="text/javascript" src="scripts/navigation.js"></script>
+        <script type="text/javascript" src="scripts/carte.js"></script>
 	</body>
 </html>
