@@ -1,3 +1,5 @@
+<!--template du contenu spécifique au compte, on vérifie qu’il est connecté avant d’afficher ses données-->
+
 <h1>Mon compte</h1>
 <?php
     if ($_SESSION["template"]["connecte"] == true)

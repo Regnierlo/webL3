@@ -1,5 +1,12 @@
+//Fichier qui contient toutes les fonctions spécifiques à l’utilisation d’Ajax
+
 var type_requete = 'get';
 
+/*
+Envoie une requete ajax synchrone et renvoie sa réponse
+script est le script php à appeler
+parametres définit les paramètres (déjà formés) à envoyer au script
+ */
 function requete_ajax_synchrone(script, parametres)
 {
     //création de l’objet XMLHttpREquest

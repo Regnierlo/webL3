@@ -1,3 +1,5 @@
+<!--template du contenu spécifique à la page carte, avec une différenciation selon le rôle stocké dans les variables de session-->
+
 <h1></h1>
 <section id="carte" class="<?php if ($_SESSION["template"]["role"] == $roles["Consultant"]) print 'large_100'; else print 'large_66'; ?> gauche fond-listique">
 

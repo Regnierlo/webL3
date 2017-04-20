@@ -1,5 +1,6 @@
+<!--script php qui gère l’inscription d’un utilisateur-->
+
 <?php
-    session_start();
     include '../config/config.php';
     include '../test/test.php';
 
@@ -18,11 +19,11 @@
     {
         $_SESSION['pseudo'] = $pseudo;
         $_SESSION['template']['connecte'] = true;
-        $_SESSION['template']['page'] = $pages['Compte'];
-        header('Location: ../pages/template.php');
+        //$_SESSION['template']['page'] = $pages['Compte'];
+        header('Location: ../compte.php');
     }
     else
     {
-        header('Location: ../pages/template.php?valide=faux');
+        header('Location: ../inscription.php?valide=faux');
     }
 ?>

@@ -1,9 +1,11 @@
+<!--template du contenu spécifique à la page d’inscription, pas de raison de l’afficher si l’utilisateur est déjà connecté-->
+
 <h1>Inscription</h1>
 <?php
     if($_SESSION["template"]["connecte"] == false) {
         print '<section id="inscription" class="fond-listique">';
         print
-            '<form method=' . $type_requete . ' action="../scripts/inscription.php">
+            '<form method="'.$type_requete.'" action="scripts/inscription.php">
                 <div class="champ gauche large_50">Prénom</div>
                 <input class="champ droite large_50 arrondi fond-violet" type="text" name="saisie_prenom" value="Entrez votre prénom"/>
                 <div class="champ gauche large_50">Nom</div>

@@ -1,4 +1,7 @@
+<!--configuration et variables utiles pour la gestion des templates et d’autres éléments de la partie vue-->
+
 <?php
+    session_start();
 	//passage de l’adresse dans une variable, en cas de besoin
 	//$_SESSION["adresse"] = 'ufrsciencestech.u-bourgogne.fr/~sm201172/Code/Vue/pages/template.php';
 	//variables utiles
