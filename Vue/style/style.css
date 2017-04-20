@@ -58,6 +58,17 @@ section
 	min-height: 350px;
 }
 
+#contenu-carte
+{
+	margin: 2em;
+}
+
+.element-carte
+{
+	margin-left: 1em;
+	margin-top: 0.5em;
+}
+
 #connexion, #inscription
 {
 	width: 50%;

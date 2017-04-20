@@ -7,9 +7,7 @@ var pages = {'Accueil': 0, 'Compte': 1, 'Carte': 2, 'Connexion': 3, 'Inscription
 //Fonction qui permet de changer de page, en passant le numéro de celle-ci
 function changer_page(page)
 {
-    //alert("requete "+page);
     var reponse = requete_ajax_synchrone("scripts/navigation.php", "page="+page);
-    //alert(reponse);
     if (reponse != 'erreur')
         $(location).attr('href', location.href);
 }

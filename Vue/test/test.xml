@@ -1,0 +1,8 @@
+<elt id="elt1" valeur="sujet1">
+    <elt id="elt2" valeur="sujet2"/>
+    <elt id="elt3" valeur="sujet3">
+        <elt id="elt4" valeur="sujet4"/>
+        <elt id="elt5" valeur="sujet5"/>
+        <elt id="elt6" valeur="sujet6"/>
+    </elt>
+</elt>

@@ -16,7 +16,6 @@
     {
         $_SESSION['pseudo'] = $pseudo;
         $_SESSION['template']['connecte'] = true;
-        //$_SESSION['template']['page'] = $pages['Compte'];
         header('Location: ../compte.php');
     }
     else
