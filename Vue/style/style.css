@@ -3,6 +3,7 @@ body
 	padding: 0;
 	margin: 0;
 	font-family: fantasy;
+	font-weight: bold;
 }
 
 header 
@@ -32,6 +33,7 @@ section
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
 	font-family: fantasy;
+	font-weight: bold;
 }
 
 .arrondi
@@ -42,6 +44,7 @@ section
 .fond-violet
 {
 	background-color: #BB88DD;
+	color: #FFF;
 }
 
 .fond-rose
@@ -53,6 +56,17 @@ section
 {
 	background: url(../images/LicorneSemiTransparente.png) no-repeat center center;
 	min-height: 350px;
+}
+
+#contenu-carte
+{
+	margin: 2em;
+}
+
+.element-carte
+{
+	margin-left: 1em;
+	margin-top: 0.5em;
 }
 
 #connexion, #inscription
