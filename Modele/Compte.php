@@ -1,6 +1,7 @@
 <?php
 	class Compte
 	{
+		private $login;
 		private $nom;
 		private $prenom;
 		private $mdp;
@@ -9,15 +10,20 @@
 		
 		
 		
-		public function __construct($n,$p,$password,$e)
+		public function __construct($l,$n,$p,$password,$e,$date)
 		{
+			$this->login = $l;
 			$this->nom = $n;
 			$this->prenom = $p;
 			$this->mdp = $password;
 			$this->email = $e;
-			$this->dateCreation = date("d-m-Y");
+			$this->dateCreation = $date;
 		}
 		
+		public function getLogin()
+		{
+			return $this->login;
+		}
 		
 		public function getNom()
 		{
@@ -46,6 +52,11 @@
 		}
 		
 		
+		
+		public function setLogin($l)
+		{
+			$this->login = $l;
+		}
 		
 		public function setNom($n)
 		{
