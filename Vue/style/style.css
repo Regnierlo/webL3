@@ -41,7 +41,7 @@ section
 	border-radius: 5px;
 }
 
-.fond-violet
+.fond-violet, .fond-consultant, .fond-publique
 {
 	background-color: #BB88DD;
 	color: #FFF;
@@ -50,6 +50,7 @@ section
 .fond-rose
 {
 	background-color: #EECCEE;
+	/*background-color: #EEDDFF;*/
 }
 
 .fond-listique
@@ -57,6 +58,36 @@ section
 	background: url(../images/LicorneSemiTransparente.png) no-repeat center center;
 	min-height: 350px;
 }
+
+.fond-privee
+{
+	background-color: #8855BB;
+	color: #FFF;
+}
+
+.fond-admin
+{
+	background-color: #9966CC;
+	color: #FFF;
+}
+
+.fond-editeur
+{
+	background-color: #AA77EE;
+	color: #FFF;
+}
+/*
+.fond-consultant
+{
+	background-color: #BB88DD;
+	color: #FFF;
+}
+
+.fond-publique
+{
+	background-color: #BB88DD;
+	color: #FFF;
+}*/
 
 #connexion, #inscription
 {

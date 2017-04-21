@@ -2,6 +2,10 @@
 
 var type_requete = 'get';
 
+//Création des l’objets XMLHttpREquest
+var objetXHR = new XMLHttpRequest();
+var objetXHRasynchrone = new XMLHttpRequest();
+
 /*
 Envoie une requete ajax synchrone et renvoie sa réponse
 script est le script php à appeler
@@ -9,24 +13,49 @@ parametres définit les paramètres (déjà formés) à envoyer au script
  */
 function requete_ajax_synchrone(script, parametres)
 {
-    //création de l’objet XMLHttpREquest
-    var objetXHR = new XMLHttpRequest();
-
     //Création de la requête http de type "type_requete" au script php "script" et en mode synchrone
     if (type_requete == 'get')
         objetXHR.open(type_requete, script+"?"+parametres, false);
     else
         objetXHR.open(type_requete, script, false);
 
-    //envoi de la requête
+    //Envoi de la requête
     if (type_requete == 'get')
         objetXHR.send(null);
     else
         objetXHR.send(parametres);
 
-    //récupération du résultat
+    //Récupération du résultat
     var reponse = objetXHR.responseText;
 
-    //affichage dans le champ prévu
+    //Renvoi de la réponse
     return reponse;
 }
+
+/*
+ Envoie une requete ajax asynchrone et indique sa fonction de traitement
+ script est le script php à appeler
+ parametres définit les paramètres (déjà formés) à envoyer au script
+ fonction_traitement est la fonction à appeler pour le traitement
+ */
+function requete_ajax_asynchrone(script, parametres, fonction_traitement)
+{
+    //Désignation de la fonction de rappel
+    objetXHRasynchrone.onreadystatechange = fonction_traitement;
+
+    //Création de la requête http de type "type_requete" au script php "script" et en mode asynchrone
+    if (type_requete == 'get')
+        objetXHRasynchrone.open(type_requete, script+"?"+parametres, false);
+    else
+        objetXHRasynchrone.open(type_requete, script, false);
+
+    //Affectation du tpe d’encodage de la requête
+    //objetXHR.setRequestHeader("Centent-Type", "application/x-www-form-urlencode");
+
+    //Envoi de la requête
+    if (type_requete == 'get')
+        objetXHRasynchrone.send(null);
+    else
+        objetXHRasynchrone.send(parametres);
+}
+
