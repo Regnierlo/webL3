@@ -2,5 +2,5 @@
 
 <h1>Accueil</h1>
 <section id="cartes" class="fond-listique">
-
+    <?php include 'scripts/php/afficher_cartes.php'?>
 </section>

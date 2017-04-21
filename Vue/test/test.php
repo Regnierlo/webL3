@@ -28,30 +28,41 @@
         if ($role == $roles['Admin'])
         {
             $cartes[0] = array("Nom" => "toto", "Id" => 0);
-            $cartes[1] = array("Nom" => "toto", "Id" => 15);;
+            $cartes[1] = array("Nom" => "toto", "Id" => 15);
         }
         else if ($role == $roles['Editeur'])
         {
-            $cartes[0] = array("Nom" => "toto", "Id" => 1);;
-            $cartes[1] = array("Nom" => "toto", "Id" => 2);;
-            $cartes[2] = array("Nom" => "toto", "Id" => 3);;
+            $cartes[0] = array("Nom" => "toto", "Id" => 1);
+            $cartes[1] = array("Nom" => "toto", "Id" => 2);
+            $cartes[2] = array("Nom" => "toto", "Id" => 3);
         }
         else if ($role == $roles['Consultant'])
         {
-            $cartes[0] = array("Nom" => "toto", "Id" => 4);;
-            $cartes[1] = array("Nom" => "toto", "Id" => 5);;
-            $cartes[2] = array("Nom" => "toto", "Id" => 6);;
-            $cartes[3] = array("Nom" => "toto", "Id" => 7);;
+            $cartes[0] = array("Nom" => "toto", "Id" => 4);
+            $cartes[1] = array("Nom" => "toto", "Id" => 5);
+            $cartes[2] = array("Nom" => "toto", "Id" => 6);
+            $cartes[3] = array("Nom" => "toto", "Id" => 7);
         }
         return $cartes;
     }
 
-    function recup_cartes_publiques()
+    function recuperationCartesPubliques()
     {
         $cartes = array();
-        $cartes[0] = array("Nom" => "toto", "Id" => 7);;
-        $cartes[1] = array("Nom" => "toto", "Id" => 8);;
-        $cartes[2] = array("Nom" => "toto", "Id" => 15);;
+        $cartes[0] = array("Nom" => "titi", "Id" => 7);
+        $cartes[1] = array("Nom" => "tata", "Id" => 8);
+        $cartes[2] = array("Nom" => "toto", "Id" => 15);
+        $cartes[3] = array("Nom" => "titi", "Id" => 7);
+        $cartes[4] = array("Nom" => "tata", "Id" => 8);
+        $cartes[5] = array("Nom" => "toto", "Id" => 15);
+        $cartes[6] = array("Nom" => "titi", "Id" => 7);
+        $cartes[7] = array("Nom" => "tata", "Id" => 8);
+        $cartes[8] = array("Nom" => "toto", "Id" => 15);
+        $cartes[9] = array("Nom" => "tata", "Id" => 8);
+        $cartes[10] = array("Nom" => "toto", "Id" => 15);
+        $cartes[11] = array("Nom" => "titi", "Id" => 7);
+        $cartes[12] = array("Nom" => "tata", "Id" => 8);
+        $cartes[13] = array("Nom" => "toto", "Id" => 15);
         return $cartes;
     }
 

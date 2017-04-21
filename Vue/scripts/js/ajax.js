@@ -13,10 +13,16 @@ function requete_ajax_synchrone(script, parametres)
     var objetXHR = new XMLHttpRequest();
 
     //Création de la requête http de type "type_requete" au script php "script" et en mode synchrone
-    objetXHR.open(type_requete, script+"?"+parametres, false);
+    if (type_requete == 'get')
+        objetXHR.open(type_requete, script+"?"+parametres, false);
+    else
+        objetXHR.open(type_requete, script, false);
 
     //envoi de la requête
-    objetXHR.send(null);
+    if (type_requete == 'get')
+        objetXHR.send(null);
+    else
+        objetXHR.send(parametres);
 
     //récupération du résultat
     var reponse = objetXHR.responseText;

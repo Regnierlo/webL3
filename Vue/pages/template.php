@@ -12,8 +12,9 @@
 			<?php include("entete.php");?>
 		</header>
 		<?php include("contenu.php");?>
-        <script type="text/javascript" src="scripts/jquery.js"></script>
-        <script type="text/javascript" src="scripts/ajax.js"></script>
-        <script type="text/javascript" src="scripts/navigation.js"></script>
+        <script type="text/javascript" src="scripts/js/jquery.js"></script>
+        <script type="text/javascript" src="scripts/js/ajax.js"></script>
+        <script type="text/javascript" src="scripts/js/navigation.js"></script>
+        <script type="text/javascript" src="scripts/js/carte.js"></script>
 	</body>
 </html>

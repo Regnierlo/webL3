@@ -6,6 +6,7 @@
 	//$_SESSION["adresse"] = 'ufrsciencestech.u-bourgogne.fr/~sm201172/Code/Vue/pages/template.php';
 	//variables utiles
 	$type_requete = 'get';
+	$adresse_controleur = 'test/test.php';
 	//tableaux de constantes
 	$pages = array("Accueil" => 0, "Compte" => 1, "Carte" => 2, "Connexion" => 3, "Inscription" => 4);
 	$roles = array("Admin" => 0, "Editeur" => 1, "Consultant" => 2);
@@ -19,5 +20,5 @@
 	//temporaire pour les tests
 	//$_SESSION["template"]["connecte"] = false;
 	//$_SESSION["template"]["page"] = $pages["Accueil"];
-	//$_SESSION["template"]["role"] = $roles["Consultant"];
+	//$_SESSION["template"]["role"] = $roles["Admin"];
 ?>
