@@ -1,3 +1,4 @@
+<!-- contrôleur inclu -->
 <?php
 
     function connecter($pseudo, $mdp)
@@ -13,6 +14,11 @@
     function recup_donnees($pseudo)
     {
         return array('pseudo' => 'toto', 'prenom' => 'tata', 'nom' => 'titi', 'email' => 'toto@mail.com');
+    }
+
+    function creationCarte()
+    {
+        return true;
     }
 
     function recuperationCartesPrivees()
