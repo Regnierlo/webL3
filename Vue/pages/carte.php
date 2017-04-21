@@ -3,7 +3,7 @@
 <h1><?php if (isset($_SESSION['carte'])) print $_SESSION['carte']['nom']; else print 'Aucune carte sélectionnée'; ?></h1>
 <section id="carte" class="<?php if ($_SESSION["template"]["role"] == $roles["Consultant"]) print 'large_100'; else print 'large_66'; ?> gauche fond-listique">
     <?php
-        include 'scripts/afficher_carte.php';
+        include 'scripts/php/afficher_carte.php';
     ?>
 </section>
 <?php

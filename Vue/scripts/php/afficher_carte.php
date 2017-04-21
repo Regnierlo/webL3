@@ -1,10 +1,10 @@
 <!--utilise l’identifiant de la carte pour la récupérer et la transformer à l’aide du script carte.xsl-->
 
 <?php
-    include 'test/test.php';
+    include "$adresse_controleur";
 
     $xslDoc = new DOMDocument();
-    $xslDoc->load("scripts/carte.xsl");
+    $xslDoc->load("scripts/xsl/carte.xsl");
 
     $xmlDoc = simplexml_load_string(recup_carte($_SESSION['carte']['id']));
     //$xmlDoc = new DOMDocument();

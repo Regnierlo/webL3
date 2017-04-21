@@ -21,7 +21,7 @@
         print   '<form class="gauche" method="'.$type_requete.'" action="compte.php">';
         print 	    '<input id="navigation_compte" class="champ arrondi fond-rose" type="submit" value="Mon compte"/>';
         print   '</form>';
-        print   '<form class="droite" method="'.$type_requete.'" action="scripts/deconnexion.php">';
+        print   '<form class="droite" method="'.$type_requete.'" action="scripts/php/deconnexion.php">';
         print 	    '<input class="champ arrondi fond-rose" type="submit" value="Déconnexion"/>';
         print   '</form>';
         print '</div>';
