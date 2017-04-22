@@ -1,4 +1,11 @@
 <?php
+    /**
+     * Génère une requête INSERT grâce aux paramètres
+     *
+     * @param $table Nom de la table qui va recevoir l'insertion
+     * @param $champsOuAjouter Liste des champs (TABLEAU) où ajouter
+     * @param $valeursAAjouter Liste des valeurs (TABLEAU)
+     */
     function creerInsert($table, $champsOuAjouter, $valeursAAjouter)
     {
         //Récuèpere la taille des tableaux des champs et des valeurs
@@ -39,7 +46,7 @@
                         $requete.=');';
 
                 }
-                echo $requete;
+
                 //Execution de la requete
                 $bd->query($requete);
 
