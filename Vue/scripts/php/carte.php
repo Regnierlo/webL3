@@ -5,7 +5,7 @@
     session_start();
     if (isset($_REQUEST['id'])) {
         $_SESSION['carte']['elt'] = $_REQUEST['id'];
-        print 'fini '. $_SESSION['carte']['elt'];
+        print $_SESSION['carte']['elt'];
     }
     else
         print 'erreur';
