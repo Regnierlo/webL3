@@ -3,12 +3,13 @@
 <?php
     include 'config/config.php';
     include $adresse_controleur;
+    $controleur = new Controller();
 
-    function affiche_publiques($type_requete)
+    function affiche_publiques($type_requete, $controleur)
     {
 
         //récupération des cartes
-        $cartes = recuperationCartesPubliques();
+        $cartes = $controleur->recuperationCartesPubliques();
 
         //on trie dans le sens inverse des identifiants (le plus récent en premier)
         krsort($cartes);
@@ -24,18 +25,18 @@
         }
     }
 
-    function affiche_compte($type_requete, $roles)
+    function affiche_compte($type_requete, $roles, $controleur)
     {
         //construction du tableau en vue de l’affichage
         $cartes = array();
         //récupération des cartes privées
-        foreach (recuperationCartesPrivees() as $i => $carte)
+        foreach ($controleur->recuperationCartesPrivees() as $i => $carte)
         {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'privee';
         }
         //récupération des cartes partagées
-        foreach (recuperationCartesPartagees() as $i => $carte)
+        foreach ($controleur->recuperationCartesPartagees() as $i => $carte)
         {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'partagee';
@@ -80,8 +81,8 @@
     }
 
     if($cartes == $type_affichage_cartes['Publiques'])
-        affiche_publiques($type_requete);
+        affiche_publiques($type_requete, $controleur);
     else if ($cartes == $type_affichage_cartes['Compte'])
-        affiche_compte($type_requete, $roles);
+        affiche_compte($type_requete, $roles, $controleur);
 ?>
 

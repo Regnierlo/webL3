@@ -1,8 +1,8 @@
 <!-- contrôleur inclu -->
 <?php
 
-    //class Controller
-    //{
+    class Controller
+    {
 
         function connecter($pseudo, $mdp)
         {
@@ -109,5 +109,5 @@
                         </elt>
                     </elt>';
         }
-    //}
+    }
 ?>
