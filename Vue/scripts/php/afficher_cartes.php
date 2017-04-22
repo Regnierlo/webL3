@@ -1,7 +1,8 @@
 <!--affiche les cartes publiques ou sur la page du compte d’un utilisateur connecté-->
 
 <?php
-    include "$adresse_controleur";
+    include 'config/config.php';
+    include $adresse_controleur;
 
     function affiche_publiques($type_requete)
     {
@@ -16,7 +17,7 @@
         foreach ($cartes as $i => $carte)
         {
             print '<form method="'.$type_requete.'" action="carte.php">';
-            print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
+            //print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
             print   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
             print   '<input class="champ carte-listee gauche arrondi fond-publique" type="submit" value="'.$carte["Nom"].'"/>';
             print '</form>';
@@ -70,7 +71,7 @@
 
             //affichage en lui-même
             print '<form method="'.$type_requete.'" action="carte.php">';
-            print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
+            //print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
             print   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
             print   '<input class="champ carte-listee gauche arrondi fond-'.$couleur_fond.'" type="submit" value="'.$carte["Nom"].'"/>';
             print '</form>';
@@ -78,9 +79,9 @@
 
     }
 
-    if($cartes == 'publiques')
+    if($cartes == $type_affichage_cartes['Publiques'])
         affiche_publiques($type_requete);
-    else if ($cartes == 'compte')
+    else if ($cartes == $type_affichage_cartes['Compte'])
         affiche_compte($type_requete, $roles);
 ?>
 

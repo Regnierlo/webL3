@@ -1,18 +1,41 @@
-<!--page d’une carte, on change la variable et on appelle le template-->
+<!--page d’une carte, on change récupère les données et on appelle le template-->
 
 <?php
     include 'config/config.php';
+    include $adresse_controleur;
+
     $_SESSION['template']['page'] = $pages['Carte'];
 
+    //gestion des données de la carte
     if (isset($_REQUEST['carte']))
     {
-        $_SESSION['carte']['id'] = $_REQUEST['carte'];
-        $_SESSION['carte']['nom'] = $_REQUEST['nom_carte'];
-        $_SESSION['carte']['elt'] = $_REQUEST['elt'];
+
+        $id_carte = $_REQUEST['carte'];
+
+        //récupération des données de la carte
+        $donnees = recuperationDonneesCarte($id_carte);
+
+        if ($donnees != false)
+        {
+            //affectation des données
+            $_SESSION['carte']['id'] = $id_carte;
+            $_SESSION['carte']['nom'] = 'toto';
+            $_SESSION['carte']['role'] = $roles['Consultant'];
+            $_SESSION['carte']['elt'] = null;
+            $_SESSION['carte']['donnees'] = $donnees;
+        }
+        else
+        {
+            //suppression des données de la carte si elle existait
+            unset($_SESSION['carte']);
+            $_SESSION['carte']['role'] = $roles['Interdit'];
+        }
     }
     else
     {
+        //suppression des données de la carte si elle existait
         unset($_SESSION['carte']);
+        $_SESSION['carte']['role'] = $roles['Interdit'];
     }
     include 'pages/template.php';
 ?>

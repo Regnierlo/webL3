@@ -4,7 +4,6 @@
 <section id="cartes" class="fond-listique">
     <?php
         //affichage des cartes
-        $cartes = "publiques";
         include 'scripts/php/afficher_cartes.php';
     ?>
 </section>

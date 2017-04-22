@@ -21,8 +21,7 @@
             </section>
             <h1>Mes cartes</h1>
             <section id="cartes" class="fond-listique">';
-        //affichage des cartes
-        $cartes = "compte";
+        //affichage des carte
         include 'scripts/php/afficher_cartes.php';
 
         print '</section>';

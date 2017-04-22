@@ -6,7 +6,6 @@ var id_gen;
 //fonction qui sélectionne un élément (surlignement et stockage la valeur)
 function selectElt(id)
 {
-    //alert(elt);
     //var id = elt.getAttribute('id');
 
     //changement du style pour montrer l’élément séletionné

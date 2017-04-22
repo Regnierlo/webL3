@@ -2,16 +2,17 @@
 
 <?php
     $placement = 'Vue';
+
     if (file_exists('config/config.php'))
     {
         include 'config/config.php';
-        include "$adresse_controleur";
+        include_once $adresse_controleur;
     }
     else
     {
         $placement = 'php';
         include '../../config/config.php';
-        include "../../$adresse_controleur";
+        include_once "../../$adresse_controleur";
     }
 
     //Récupération du doc xsl
