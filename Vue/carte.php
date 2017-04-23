@@ -21,7 +21,7 @@
             //affectation des données
             $_SESSION['carte']['id'] = $id_carte;
             $_SESSION['carte']['nom'] = 'toto';
-            $_SESSION['carte']['role'] = $roles['Consultant'];
+            $_SESSION['carte']['role'] = $roles['Admin'];
             $_SESSION['carte']['elt'] = null;
             $_SESSION['carte']['donnees'] = $donnees;
         }
