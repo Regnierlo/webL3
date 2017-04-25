@@ -2,7 +2,8 @@
 
 <?php
     include '../../config/config.php';
-include "../../$adresse_controleur";
+    include "../../$adresse_controleur";
+    $controleur = new Controller();
 
     //récupération sécurisée des champs
     $pseudo = htmlentities($_REQUEST['saisie_pseudo']);
@@ -12,7 +13,7 @@ include "../../$adresse_controleur";
     $mail = htmlentities($_REQUEST['saisie_mail']);
 
     //vérification des valeurs de connexion
-    $valide = creer_compte($pseudo, $mdp, $prenom, $nom, $mail);
+    $valide = $controleur->creer_compte($pseudo, $mdp, $prenom, $nom, $mail);
 
     //redirection
     if ($valide == true)

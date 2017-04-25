@@ -3,13 +3,14 @@
 <?php
     include '../../config/config.php';
     include "../../$adresse_controleur";
+    $controleur = new Controller();
 
     //récupération sécurisée des champs
     $pseudo = htmlentities($_REQUEST['saisie_pseudo']);
     $mdp = htmlentities($_REQUEST['saisie_mdp']);
 
     //vérification des valeurs de connexion
-    $valide = connecter($pseudo, $mdp);
+    $valide = $controleur->connecter($pseudo, $mdp);
 
     //redirection
     if ($valide == true)

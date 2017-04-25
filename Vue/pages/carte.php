@@ -14,38 +14,40 @@
         if ($_SESSION['carte']['role'] == $roles["Admin"] && $_SESSION["template"]["connecte"] == true) print
             '<div class="large_33 gauche">
                 <section id="edition">
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_fils" value="Ajouter un fils"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_frere" value="Ajouter un frère"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="modifier" value="Modifier"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer" value="Supprimer"/>
+                    <input id="saisie-nom-elt" class="champ large_50 arrondi fond-violet" type="text"/> 
+                    <input id="renommer" class="champ large_50 arrondi fond-violet" type="button" value="Renommer"/>
+                    <input id="ajouter-fils" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un fils"/>
+                    <input id="ajouter-frere" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un frère"/>
+                    <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
                 </section>
                 <section id="administration">
                     <table class="large_100">
                         <tr>
-                            <td/><td>Autoriser édition</td><td>Retirer partage</td>
+                            <td/><td>Autoriser édition</td><td>Autoriser consultation</td>
                         </tr>
             
                         <tr><!--ligne de gestion des droits pour un utilisateur-->
                             <td>Pseudo</td>
-                            <td class="centre"><input class="arrondi fond-violet" type="checkbox" name="autoriser_edition"/></td>
-                            <td class="centre"><input class="arrondi fond-violet" type="radio" name="retirer_partage"/></td>
+                            <td class="centre"><input class="autoriser-edition" type="checkbox" value="pseudo"/></td>
+                            <td class="centre"><input class="retirer-partage" type="checkbox" value="pseudo" checked="checked"/></td>
                         </tr>
                     </table>
-                    <input class="champ large_50 arrondi fond-violet" type="text" name="saisie_pseudo_partage"/>
-                    <input class="champ large_50 arrondi fond-violet droite" type="button" name="champ_pseudo_partage" value="Partager"/>
-                    <input class="champ large_50 arrondi fond-violet" type="text" name="saisie_nom_carte"/>
-                    <input class="champ large_50 arrondi fond-violet droite" type="button" name="champ_nom_carte" value="Renommer"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer_carte" value="Supprimer carte"/>
+                    <input id="saisie-pseudo-partage" class="champ large_50 arrondi fond-violet" type="text"/>
+                    <input id="partager-carte" class="champ large_50 arrondi fond-violet droite" type="button" value="Partager"/>
+                    <input id="saisie-nom-carte" class="champ large_50 arrondi fond-violet" type="text"/>
+                    <input id="renommer-carte" class="champ large_50 arrondi fond-violet droite" type="button" value="Renommer"/>
+                    <input id="supprimer-carte" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer carte"/>
                 </section>
             </div>';
 
         if ($_SESSION['carte']['role'] == $roles["Editeur"] && $_SESSION["template"]["connecte"] == true) print
             '<div class="large_33 gauche">
                 <section id="edition">
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_fils" value="Ajouter un fils"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="ajouter_frere" value="Ajouter un frère"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="modifier" value="Modifier"/>
-                    <input class="champ large_100 arrondi fond-violet" type="button" name="supprimer" value="Supprimer"/>
+                    <input id="saisie-nom-elt" class="champ large_50 arrondi fond-violet" type="text"/> 
+                    <input id="renommer" class="champ large_50 arrondi fond-violet" type="button" value="Renommer"/>
+                    <input id="ajouter-fils" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un fils"/>
+                    <input id="ajouter-frere" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un frère"/>
+                    <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
                 </section>
                 <section id="administration">
                     <table class="large_100">
@@ -55,7 +57,7 @@
             
                         <tr><!--ligne de visualisation des droits pour un utilisateur-->
                             <td>Pseudo</td>
-                            <td class="centre"><input class="arrondi fond-violet" disabled="disabled" type="checkbox" name="autoriser_edition"/></td>
+                            <td class="centre"><input disabled="disabled" type="checkbox"/></td>
                         </tr>
                     </table>
                 </section>

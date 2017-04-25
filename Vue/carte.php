@@ -3,6 +3,7 @@
 <?php
     include 'config/config.php';
     include $adresse_controleur;
+    $controleur = new Controller();
 
     $_SESSION['template']['page'] = $pages['Carte'];
 
@@ -13,14 +14,14 @@
         $id_carte = $_REQUEST['carte'];
 
         //récupération des données de la carte
-        $donnees = recuperationDonneesCarte($id_carte);
+        $donnees = $controleur->recuperationDonneesCarte($id_carte);
 
         if ($donnees != false)
         {
             //affectation des données
             $_SESSION['carte']['id'] = $id_carte;
             $_SESSION['carte']['nom'] = 'toto';
-            $_SESSION['carte']['role'] = $roles['Consultant'];
+            $_SESSION['carte']['role'] = $roles['Admin'];
             $_SESSION['carte']['elt'] = null;
             $_SESSION['carte']['donnees'] = $donnees;
         }

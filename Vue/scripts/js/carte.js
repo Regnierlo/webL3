@@ -18,7 +18,7 @@ function selectElt(id)
 }
 
 //ajout de l’action sur les éléments de la carte
-$('.element-carte').on('click', function(e){selectElt(this.getAttribute('id'));return false;/*e.stopPropagation();*/});
+$('.element-carte').on('click', function(){selectElt(this.getAttribute('id'));return false;/*e.stopPropagation();*/});
 
 
 
@@ -31,7 +31,7 @@ function afficheMajCarte()
         $('#carte').html(reponse);
 
         //on remet le code qui a été annulé
-        $('.element-carte').on('click', function(e){selectElt(this.getAttribute('id'));return false;/*e.stopPropagation();*/});
+        $('.element-carte').on('click', function(){selectElt(this.getAttribute('id'));return false;/*e.stopPropagation();*/});
         selectElt(id_gen);
     }
 }
@@ -47,5 +47,102 @@ function majCarte()
     //$('#carte').html(reponse);
 }
 
-//setTimeout(majCarte, 5000);
 setInterval(majCarte, 5000);
+
+//////////////////////////////////////
+//toute la partie édition
+
+//changement du nom de l’élément sélectionné
+function renommerElt(nom)
+{
+    alert("changer nom " + nom);
+}
+$('#renommer').on('click', function()
+{
+    renommerElt($('#saisie-nom-elt').val());
+});
+
+//création d’un fils pour l’élément sélectionné
+function creerFils()
+{
+    alert("créer fils ");
+}
+$('#ajouter-fils').on('click', creerFils);
+
+//création d’un frère pour l’élément sélectionné (il sera ajouter en dernier élément du père)
+function creerFrere()
+{
+    alert("créer frère ");
+}
+$('#ajouter-frere').on('click', creerFrere);
+
+//suppression de l’élément sélectionné
+function supprimerElt()
+{
+    alert("supprimer élément ");
+}
+$('#supprimer').on('click', supprimerElt);
+
+//ajout du droit d’édition
+function ajouterEdition(pseudo)
+{
+    alert("ajouter édition " + pseudo);
+}
+
+//suppression du droit d’édition
+function supprimerEdition(pseudo)
+{
+    alert("supprimer édition " + pseudo);
+}
+
+$('.autoriser-edition').on('click', function()
+{
+    alert(this.checked + ' ' + this.value);
+    if (this.checked == true)
+        ajouterEdition(this.value);
+    else
+        supprimerEdition(this.value);
+
+});
+
+//partage avec un utilisateur de la carte
+function partager(pseudo)
+{
+    alert("partager " + pseudo);
+}
+$('#partager-carte').on('click', function(e)
+{
+    partager($('#saisie-pseudo-partage').val());
+});
+
+//arrêter le partage de la carte avec un utilisateur
+function arreterPartage(pseudo)
+{
+    alert("arrêter partage " + pseudo);
+}
+$('.retirer-partage').on('click', function(e)
+{
+    alert(this.checked);
+    if (this.checked == false)
+        arreterPartage(this.value);
+});
+
+//renommer la carte
+function renommerCarte(nom)
+{
+    alert("changer nom carte " + nom);
+}
+$('#renommer-carte').on('click', function()
+{
+    renommerCarte($('#saisie-nom-carte').val());
+});
+
+//supprimer la carte
+function supprimerCarte()
+{
+    alert("supprimer carte ");
+}
+$('#supprimer-carte').on('click', supprimerCarte);
+
+
+

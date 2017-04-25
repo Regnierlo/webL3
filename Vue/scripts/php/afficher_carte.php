@@ -14,6 +14,7 @@
         include '../../config/config.php';
         include_once "../../$adresse_controleur";
     }
+    $controleur = new Controller();
 
     //Récupération du doc xsl
     $xslDoc = new DOMDocument();
@@ -23,7 +24,7 @@
         $xslDoc->load('../xsl/carte.xsl');
 
     //Récupération du doc xml
-    $xmlDoc = simplexml_load_string(recup_carte($_SESSION['carte']['id']));
+    $xmlDoc = simplexml_load_string($controleur->recup_carte($_SESSION['carte']['id']));
     //$xmlDoc = new DOMDocument();
     //$xmlDoc->load('test/test.xml');
 
