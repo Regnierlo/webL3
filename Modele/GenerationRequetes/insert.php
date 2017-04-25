@@ -57,4 +57,27 @@
             die('Erreur : taille des tableaux des champs et des nouvelles valeurs différentes');
         }
     }
+
+    /**
+     * Insert une nouvelle carte dans la BD et la lie au compte appropriée
+     *
+     * @param $nomCarte Nom de la carte à inserer
+     * @param $accessibilite Type d'accessibilité (Public, Partege, Prive)
+     * @param $login Login qui demande l'ajout d'une carte
+     */
+    function insertNewCarte($nomCarte, $accessibilite, $login)
+    {
+        try {
+            //Connexion
+            $bd = new PDO('mysql:host=172.31.21.41;dbname=lr206974;charset=utf8', 'lr206974', 'lr206974');
+
+            //Construction de la requête
+            $req="CALL add_Carte('".$nomCarte."','".$accessibilite."','".$login."');";
+
+            //Execution de la requête
+            $bd->query($req);
+        }catch (Exception $e){
+            die('Erreur : '.$e->getMessage());
+        }
+    }
 ?>
