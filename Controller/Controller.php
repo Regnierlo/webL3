@@ -1,12 +1,12 @@
 <?php
-	require ('Carte.php');
-	require ('Compte.php');
-	require ('Element.php');
-	require ('connexion.php');
-	require ('select.php');
-	require ('delete.php');
-	require ('insert.php');
-	require ('update.php');
+	require ('../Modele/Carte.php');
+	require ('../Modele/Compte.php');
+	require ('../Modele/Element.php');
+	require ('../Modele/GenerationRequetes/connexion.php');
+	require ('../Modele/GenerationRequetes/select.php');
+	require ('../Modele/GenerationRequetes/delete.php');
+	require ('../Modele/GenerationRequetes/insert.php');
+	require ('../Modele/GenerationRequetes/update.php');
 	
 	class Controller
 	{
