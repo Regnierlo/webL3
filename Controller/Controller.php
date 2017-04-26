@@ -1,12 +1,12 @@
 <?php
-	require ('../Modele/Carte.php');
-	require ('../Modele/Compte.php');
-	require ('../Modele/Element.php');
-	require ('../Modele/GenerationRequetes/connexion.php');
-	require ('../Modele/GenerationRequetes/select.php');
-	require ('../Modele/GenerationRequetes/delete.php');
-	require ('../Modele/GenerationRequetes/insert.php');
-	require ('../Modele/GenerationRequetes/update.php');
+	require ('Carte.php');
+	require ('Compte.php');
+	require ('Element.php');
+	require ('connexion.php');
+	require ('select.php');
+	require ('delete.php');
+	require ('insert.php');
+	require ('update.php');
 	
 	class Controller
 	{
@@ -108,11 +108,26 @@
 		
 		public function recuperationCartesPrivees($pseudo)
 		{
+			$res = creerRequeteAvecWhere(idCarte,'v_CARTE','Login ='.$pseudo.' AND accessibilite = Prive');
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
-			if()
+			if($res != '')
 			{
-				return true;
+				$tab = array();
+				$val ="";
+				for ($i=0;$i<strlen($res);$i++)
+				{
+					if ($res[$i] == "|")
+					{
+						array_push($tab,$val);
+						$val ="";
+					}
+					else
+					{
+						$val = $val."".$res[$i];
+					}
+				}
+				return $res;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte privée ou si le pseudo est mauvais
 			else
@@ -124,11 +139,26 @@
 		
 		public function recuperationCartesPartagees($pseudo)
 		{
+			$res = creerRequeteAvecWhere(idCarte,'v_CARTE','Login ='.$pseudo.' AND accessibilite = Partage');
 			//On vérifie si le pseudo possede des cartes partagées
 			//Si c'est bon, on stocke les id et les noms des cartes
-			if()
+			if($res != '')
 			{
-				return true;
+				$tab = array();
+				$val ="";
+				for ($i=0;$i<strlen($res);$i++)
+				{
+					if ($res[$i] == "|")
+					{
+						array_push($tab,$val);
+						$val ="";
+					}
+					else
+					{
+						$val = $val."".$res[$i];
+					}
+				}
+				return $res;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
 			else
@@ -140,9 +170,24 @@
 		
 		public function recuperationCartesPubliques()
 		{
-			if()
+			$res = creerRequeteAvecWhere(idCarte,'v_CARTE','accessibilite = Public');
+			if($res!='')
 			{
-				return true;
+				$tab = array();
+				$val ="";
+				for ($i=0;$i<strlen($res);$i++)
+				{
+					if ($res[$i] == "|")
+					{
+						array_push($tab,$val);
+						$val ="";
+					}
+					else
+					{
+						$val = $val."".$res[$i];
+					}
+				}
+				return $res;
 			}	
 			//Retourne faux, si il y a un probleme
 			else
