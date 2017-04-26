@@ -1,12 +1,12 @@
 <?php
-	require ('../Modele/Carte.php');
-	require ('../Modele/Compte.php');
-	require ('../Modele/Element.php');
-	require ('../Modele/GenerationRequetes/connexion.php');
-	require ('../Modele/GenerationRequetes/select.php');
-	require ('../Modele/GenerationRequetes/delete.php');
-	require ('../Modele/GenerationRequetes/insert.php');
-	require ('../Modele/GenerationRequetes/update.php');
+	require ('Carte.php');
+	require ('Compte.php');
+	require ('Element.php');
+	require ('connexion.php');
+	require ('select.php');
+	require ('delete.php');
+	require ('insert.php');
+	require ('update.php');
 	
 	class Controller
 	{
@@ -241,29 +241,45 @@
 		
 		public function modifierRole($idCarte, $pseudo, $role)
 		{
+			$res = creerRequeteAvecWhere('idCompte', 'COMPTE', 'login ='.$pseudo);
 			//Role : Consultant (ajout à la liste des consultants), Editeur (ajout à la liste des editeurs), Aucun (retire le pseudo de la liste des Editeurs et des Consultants)
 			//On verifie que la carte et le pseudo existent et que c'est l'Administrateur qui modifie les droits
 			//Si c'est bon, on ajoute le pseudo à la liste correspondante : Consultant, Editeur 
-			if($this->compte->getPseudo()=='REQUETE')
+			if($this->compte->getPseudo()==$this->carte->getAdmin() && $this->carte->getAdmin()!=$pseudo && $res!='')
 			{
-				else if($role=='Consultant')
+				if($role=='Consultant')
 				{
+					$COA = array ('idCarteListe','idCompteListe','nomGroupe');
+					$VAA = array ($idCarte, $res, $role);
+					creerDelete('LISTE_CARTE','idCompteListe ='$res);
+					creerInsert('LISTE_CARTE', $COA, $VAA);
 					$this->carte->addListeConsultants($pseudo);
 					$this->carte->remListeEditeurs($pseudo);
+					return true;
 				}
 				else if($role=='Editeur')
 				{
-					$this->carte->addListeConsultants($pseudo);
+					$COA = array ('idCarteListe','idCompteListe','nomGroupe');
+					$VAA = array ($idCarte, $res, $role);
+					creerDelete('LISTE_CARTE','idCompteListe ='$res);
+					creerInsert('LISTE_CARTE', $COA, $VAA);
 					$this->carte->addListeEditeurs($pseudo);
+					$this->carte->remListeConsultants($pseudo);
+					return true;
 				}
 				else if($role=='Aucun')
 				{
+					creerDelete('LISTE_CARTE','idCompteListe ='$res);
 					$this->carte->remListeConsultants($pseudo);
 					$this->carte->remListeEditeurs($pseudo);
+					return true;
 				}
-				return true;
+				else
+				{
+					return false;
+				}
 			}
-			//Si la carte, le pseudo ou le role est incorrecte
+			//Si la carte, le pseudo, le role est incorrecte ou si on n'est pas administrateur de la carte
 			else
 			{
 				return false;
