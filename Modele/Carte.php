@@ -2,6 +2,7 @@
 	class Carte
 	{
 		//Compteur d'element
+        private $id;
 		private $nom;
 		private $dateCreation;
 		private $dateModification;
@@ -11,11 +12,12 @@
 		private $cmpE;
 		private $admin;
 		private $lConsultant;
-        	private $lEditeur;
+        private $lEditeur;
 
 
-		public function __construct($n,$dC,$dM,$p,$nbE,$xmlDoc,$r,$a,$lC,$lE)
+		public function __construct($i,$n,$dC,$dM,$p,$nbE,$xmlDoc,$r,$a,$lC,$lE)
 		{
+		    $this->id = $i;
 			$this->nom = $n;
 			$this->dateCreation = $dC;
 			$this->dateModification = $dM;
@@ -31,6 +33,11 @@
 
 
 		//Getter
+        public function getId()
+        {
+            return $this->id;
+        }
+
 		public function getNom()
 		{
 			return $this->nom;
@@ -59,25 +66,26 @@
 		{
 			return $this->xml_doc;
 		}
+		
 		public function getRacine()
 		{
 			return $this->racine;
 		}
 
 		public function getAdmin()
-		{
-		    return $this->admin;
-		}
+        {
+            return $this->admin;
+        }
 
 		public function getListeConsultant()
-		{
-		    return $this->lConsultant;
-		}
+        {
+            return $this->lConsultant;
+        }
 
-		public function getListeEditeur()
-		{
-		    return $this->lEditeur;
-		}
+        public function getListeEditeur()
+        {
+            return $this->lEditeur;
+        }
 
 
         //Setter
@@ -98,68 +106,68 @@
 
 		public function incCptE()
 		{
-			$this->cptE++;
+			$this->cptE ++;
 		}
 
-		public function remListeEditeur($editeur)
-		{
-		    $indice =-1;
-		    $indentation = 0;
-		    foreach ($this->lEditeur as &$valeur)
-		    {
-			if (strcmp($valeur,$editeur))
-			{
-			    $indice = $indentation;
-			}
-			$indentation ++;
-		    }
-		    if ($indice == -1)
-		    {
-			return false;
-		    }
-		    else
-		    {
-			unset($this->lEditeur[$indice]);
-			array_values($this->lEditeur); //réindexer le tableau
-			return true;
-		    }
-		}
+        public function remListeEditeur($editeur)
+        {
+            $indice =-1;
+            $indentation = 0;
+            foreach ($this->lEditeur as &$valeur)
+            {
+                if (strcmp($valeur,$editeur))
+                {
+                    $indice = $indentation;
+                }
+                $indentation ++;
+            }
+            if ($indice == -1)
+            {
+                return false;
+            }
+            else
+            {
+                unset($this->lEditeur[$indice]);
+                array_values($this->lEditeur); //réindexer le tableau
+                return true;
+            }
+        }
 
-		public function remListeConsultant($consultant)
-		{
-		    $indice =-1;
-		    $indentation = 0;
-		    foreach ($this->lConsultant as &$valeur)
-		    {
-			if (strcmp($valeur,$consultant))
-			{
-			    $indice = $indentation;
-			}
-			$indentation ++;
-		    }
-		    if ($indice == -1)
-		    {
-			return false;
-		    }
-		    else
-		    {
-			unset($this->lConsultant[$indice]);
-			array_values($this->lConsultant); //réindexer le tableau
-			return true;
-		    }
-		}
+        public function remListeConsultant($consultant)
+        {
+            $indice =-1;
+            $indentation = 0;
+            foreach ($this->lConsultant as &$valeur)
+            {
+                if (strcmp($valeur,$consultant))
+                {
+                    $indice = $indentation;
+                }
+                $indentation ++;
+            }
+            if ($indice == -1)
+            {
+                return false;
+            }
+            else
+            {
+                unset($this->lConsultant[$indice]);
+                array_values($this->lConsultant); //réindexer le tableau
+                return true;
+            }
+        }
 
 
 
-		public function addListeEditeur($editeur)
-		{
-		    array_push($this->lEditeur, $editeur);
-		}
+        public function addListeEditeur($editeur)
+        {
+            array_push($this->lEditeur, $editeur);
+        }
 
-		public function addListeConsultant($consultant)
-		{
-		    array_push($this->lConsultant,$consultant);
-		}
+        public function addListeConsultant($consultant)
+        {
+            array_push($this->lConsultant,$consultant);
+        }
 
 	}
 ?>
