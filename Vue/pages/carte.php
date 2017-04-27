@@ -10,12 +10,12 @@
                 echo ' gauche fond-listique">';
             include 'scripts/php/afficher_carte.php';
         echo '</section>';
-
         if ($_SESSION['template']['role'] == $roles["Admin"] && $_SESSION["template"]["connecte"] == true)
         {
             echo
                 '<div class="large_33 gauche">
                 <section id="edition">
+                    <p>Éditer la carte</p>
                     <input id="saisie-nom-elt" class="champ gauche large_50 arrondi fond-violet" type="text"/> 
                     <input id="renommer" class="champ gauche large_50 arrondi fond-violet" type="button" value="Renommer"/>
                     <input id="ajouter-fils" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un fils"/>
@@ -23,9 +23,9 @@
                     <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
                 </section>
                 <section id="administration">
+                    <p>Gérer les droits et la carte</p>
                     <table id="utilisateurs" class="large_100">';
-            echo 'admin';
-            include 'scripts/php/afficher_utilisateurs.php';
+            include 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
             echo   '</table>
                     <input id="saisie-pseudo-partage" class="champ gauche large_50 arrondi fond-violet" type="text"/>
                     <input id="partager-carte" class="champ gauche large_50 arrondi fond-violet" type="button" value="Partager"/>
@@ -35,12 +35,12 @@
                 </section>
             </div>';
         }
-
-        if ($_SESSION['template']['role'] == $roles["Editeur"] && $_SESSION["template"]["connecte"] == true)
+        elseif ($_SESSION['template']['role'] == $roles["Editeur"] && $_SESSION["template"]["connecte"] == true)
         {
             echo
                 '<div class="large_33 gauche">
                 <section id="edition">
+                    <p>Éditer la carte</p>
                     <input id="saisie-nom-elt" class="champ gauche large_50 arrondi fond-violet" type="text"/> 
                     <input id="renommer" class="champ gauche large_50 arrondi fond-violet" type="button" value="Renommer"/>
                     <input id="ajouter-fils" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un fils"/>
@@ -48,9 +48,9 @@
                     <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
                 </section>
                 <section id="administration">
+                    <p>Liste des utilisateurs ayant des droits</p>
                     <table id="utilisateurs" class="large_100">';
-            echo 'editeur';
-            include 'scripts/php/afficher_utilisateurs.php';
+            include 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
             echo   '</table>
                 </section>
             </div>';

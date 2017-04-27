@@ -45,6 +45,23 @@ function afficheMajUtilisateurs()
         //on récupère et on affiche
         var reponse = objetXHRasynchrone.responseText;
         $('#utilisateurs').html(reponse);
+
+        //on remet le code qui a été annulé
+        $('.autoriser-edition').on('click', function()
+        {
+            alert(this.checked + ' ' + this.value);
+            if (this.checked == true)
+                ajouterEdition(this.value);
+            else
+                supprimerEdition(this.value);
+
+        });
+        $('.retirer-partage').on('click', function(e)
+        {
+            alert(this.checked);
+            if (this.checked == false)
+                arreterPartage(this.value);
+        });
     }
 }
 

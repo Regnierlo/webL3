@@ -19,7 +19,7 @@
 		$_SESSION["pseudo"] = null;
 
 	//temporaire pour les tests
-	//$_SESSION["template"]["connecte"] = false;
+	//$_SESSION["template"]["connecte"] = true;
 	//$_SESSION["template"]["page"] = $pages["Accueil"];
 	//$_SESSION["template"]["role"] = $roles["Admin"];
 ?>

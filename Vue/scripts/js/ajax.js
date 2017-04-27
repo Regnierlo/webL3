@@ -49,9 +49,6 @@ function requete_ajax_asynchrone(script, parametres, fonction_traitement)
     else
         objetXHRasynchrone.open(type_requete, script, false);
 
-    //Affectation du tpe d’encodage de la requête
-    //objetXHR.setRequestHeader("Centent-Type", "application/x-www-form-urlencode");
-
     //Envoi de la requête
     if (type_requete == 'get')
         objetXHRasynchrone.send(null);

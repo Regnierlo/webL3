@@ -25,9 +25,9 @@
             $pseudo = $_SESSION['compte']['pseudo'];
             if ($donnees[$roles['Admin']] == $pseudo)
                 $_SESSION['template']['role'] = $roles['Admin'];
-            elseif (array_search($pseudo, $donnees[$roles['Editeur']]) != false)
+            elseif (array_search($pseudo, $donnees[$roles['Editeur']]) != false || $donnees[$roles['Editeur']][0] == $pseudo)
                 $_SESSION['template']['role'] = $roles['Editeur'];
-            elseif ($publique == true || array_search($pseudo, $donnees[$roles['Consultant']]) != false)
+            elseif ($publique == true || array_search($pseudo, $donnees[$roles['Consultant']]) != false|| $donnees[$roles['Consultant']][0] == $pseudo)
                 $_SESSION['template']['role'] = $roles['Consultant'];
         }
     }
