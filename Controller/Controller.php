@@ -75,28 +75,32 @@
 		
 		public function recuperationCarte($idCarte)
 		{
-			$res = creerRequeteAvecWhere("nomCarte, dateCreation, derniereModification, accessibilite", "CARTE", "idCarte =".$idCarte);
 			//On verifie si la carte existe dans la table Carte
-			//On retourne le fichier XML, Si la carte existe, on retourne le fichier XML, l'administrateur, le nom, les editeurs, les consultants, publique...
-			if($res!='')
+			$res = creerRequeteAvecWhere("NomCarte,DateCreation,DerniereModification,Accessibilite", "Carte", "idCarte=".$idCarte);
+			//On retourne le fichier XML, Si la carte existe, on retourne le fichier XML, l'administrateur, le nom, les editeurs, les consultants, publique.
+			if($res != "")
 			{
-				$tab = array();
-				$val ="";
-				for ($i=0;$i<strlen($res);$i++)
+                $tab = requeteDansTableau($res);
+                
+                //a compléter avec créateur et tout
+
+                $req = creerRequeteAvecWhere("idElement,nomElement,valeurElement,idElementPere","Element","idCarteElement = ".$idCarte);
+                if ($req != "")
 				{
-					if ($res[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res[$i];
-					}
+
+					$tabElt = requeteDansTableau($req);
+
+
+
+
+                    $this->carte = new Carte($idCarte, $tab[0], $tab[1], $tab[2], $tab[3], $xml_doc, $nbElement, $racine, $listeCons, $listeEdit);
+					return true; //ou retourner la carte
+
 				}
-				// IL MANQUE LES DERNIERS PARAMETRES DANS LE CONSTRUCTEUR
-				$this->carte = new Carte($tab[0], $tab[1], $tab[2], $tab[3], null, null, null, null, null, null, null);
-				return true;
+				else
+				{
+                	return false;
+				}
 			}
 			//On retoune faux, si la carte n'existe pas
 			else
@@ -104,6 +108,42 @@
 				return false;
 			}
 		}
+		
+		public function requeteDansTableau($chaine)
+		{
+			$tab = array();
+			$n = array();
+		    $val ="";
+		
+		    for ($i=0;$i<strlen($chaine);$i++)
+		    {
+		    
+				if($chaine[$i] == "<")
+				{
+					array_push($tab,$val);
+					//echo "".$val;
+					array_push($n,$tab);
+					//echo $n[0][1];
+					$tab = array();
+					$val = "";
+					$i = $i + 4;
+				}
+		        else if ($chaine[$i] == "|")
+		        {
+		            array_push($tab,$val);
+		            $val ="";
+		        }
+		        else
+		        {
+		            $val = $val.$chaine[$i];
+		      
+		        }
+		    }
+		    array_push($tab,$val);
+		    array_push($n,$tab);
+		    return $n;
+		}
+		
 		
 		public function recuperationCartesPrivees($pseudo)
 		{
