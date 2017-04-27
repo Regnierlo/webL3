@@ -1,12 +1,11 @@
 <?php
-	require ('Carte.php');
-	require ('Compte.php');
-	require ('Element.php');
-	require ('connexion.php');
-	require ('select.php');
-	require ('delete.php');
-	require ('insert.php');
-	require ('update.php');
+	require ('../Modele/Carte.php');
+	require ('../Modele/Compte.php');
+	require ('../Modele/Element.php');
+	require ('../Modele/GenerationRequetes/select.php');
+	require ('../Modele/GenerationRequetes/delete.php');
+	require ('../Modele/GenerationRequetes/insert.php');
+	require ('../Modele/GenerationRequetes/update.php');
 	
 	class Controller
 	{
@@ -31,7 +30,7 @@
 			//Retourne vrai, si c'est bon
 			$COA = array ('Login','Mdp','Mail','Nom','Prenom');
 			$VAA = array ($pseudo, $mdp, $email, $nom, $prenom);
-			if(creerRequeteAvecWhere('Login', 'COMPTE' , 'Login='.$pseudo)!='')
+			if(creerRequeteAvecWhere('Login', 'COMPTE' , 'Login = '.$pseudo)!='')
 			{
 				creerInsert('COMPTE',$COA,$VAA);
 				$this->compte = new Compte($pseudo, $prenom, $nom, $email, $date);
@@ -76,7 +75,7 @@
 		
 		public function recuperationCarte($idCarte)
 		{
-			$res = creerRequeteAvecWhere("nomCarte, dateCreation, derniereModification, accessibilite", "CARTE", "idCarte =".$idCarte)!=''
+			$res = creerRequeteAvecWhere("nomCarte, dateCreation, derniereModification, accessibilite", "CARTE", "idCarte =".$idCarte);
 			//On verifie si la carte existe dans la table Carte
 			//On retourne le fichier XML, Si la carte existe, on retourne le fichier XML, l'administrateur, le nom, les editeurs, les consultants, publique...
 			if($res!='')
@@ -96,7 +95,7 @@
 					}
 				}
 				// IL MANQUE LES DERNIERS PARAMETRES DANS LE CONSTRUCTEUR
-				$this->carte = new Carte($tab[0], $tab[1], $tab[2], $tab[3], null, null, null, null, null, null, null)
+				$this->carte = new Carte($tab[0], $tab[1], $tab[2], $tab[3], null, null, null, null, null, null, null);
 				return true;
 			}
 			//On retoune faux, si la carte n'existe pas
@@ -199,7 +198,7 @@
 		public function creationCarte($nom)
 		{
 			$COA = array ('NomCarte','DateCreation','DerniereModification');
-			$VAA = array ($nom, date(format:"d-m-Y"), date(format:"d-m-Y"));			
+			$VAA = array ($nom, date('d-m-Y'), date('d-m-Y'));			
 			creetInsert('CARTE',$COA,$VAA);
 			$idC=creerRequeteAvecWhere('idCarteListe','v_LISTE_CARTE', 'login='.$this->compte->pseudo.'ORDER BY idCarteListe DESC LIMIT 1');
 			$this->carte=recuperationCarte($idC);	
@@ -221,7 +220,7 @@
 				return false;
 			}
 		}
-				
+			
 		public function supprimerCarte($idCarte)
 		{
 			//On verifie que la carte existe dans la table Carte et que c'est bien l'Administrateur qui la supprime
@@ -251,7 +250,7 @@
 				{
 					$COA = array ('idCarteListe','idCompteListe','nomGroupe');
 					$VAA = array ($idCarte, $res, $role);
-					creerDelete('LISTE_CARTE','idCompteListe ='$res);
+					creerDelete('LISTE_CARTE','idCompteListe ='.$res);
 					creerInsert('LISTE_CARTE', $COA, $VAA);
 					$this->carte->addListeConsultants($pseudo);
 					$this->carte->remListeEditeurs($pseudo);
@@ -261,7 +260,7 @@
 				{
 					$COA = array ('idCarteListe','idCompteListe','nomGroupe');
 					$VAA = array ($idCarte, $res, $role);
-					creerDelete('LISTE_CARTE','idCompteListe ='$res);
+					creerDelete('LISTE_CARTE','idCompteListe ='.$res);
 					creerInsert('LISTE_CARTE', $COA, $VAA);
 					$this->carte->addListeEditeurs($pseudo);
 					$this->carte->remListeConsultants($pseudo);
@@ -269,7 +268,7 @@
 				}
 				else if($role=='Aucun')
 				{
-					creerDelete('LISTE_CARTE','idCompteListe ='$res);
+					creerDelete('LISTE_CARTE','idCompteListe ='.$res);
 					$this->carte->remListeConsultants($pseudo);
 					$this->carte->remListeEditeurs($pseudo);
 					return true;
@@ -290,7 +289,7 @@
 		{
 			//On verifie si la carte existe dans la table Carte
 			//Si c'est bon on affecte la nouvelle valeur
-			if($this->carte->getAdmin()==$this->compte->getPseudo() && creerRequeteAvecWhere('idCarte', 'CARTE' , 'idCarte='.$idCarte)!='' && ($publique='Public' || $publique='Prive' || $publique='Partage')
+			if($this->carte->getAdmin()==$this->compte->getPseudo() && creerRequeteAvecWhere('idCarte', 'CARTE' , 'idCarte='.$idCarte)!='' && ($publique=='Public' || $publique=='Prive' || $publique=='Partage'))
 			{
 				creerUpdate('Carte', 'accessibilite', $publique, 'idCarte='.$idCarte);
 				$this->carte->setPublique($publique);
@@ -298,8 +297,12 @@
 			//Sinon on retourne faux
 			else
 			{
-				return false
+				return false;
 			}
 		}
 	}
+	
+	$testing = new Controller();
+	$testing->inscription('Didier', 'Jean', 'D', 'J', 'J@D');
+	echo 'coucou';
 ?>
