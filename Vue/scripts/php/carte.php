@@ -4,10 +4,11 @@
     header('Content-Type: text/plain');
     if (isset($_REQUEST['action']))
     {
-        session_start();
+        //inclusion du contrôleur
         include '../../config/config.php';
         include "../../$adresse_controleur";
         $controleur = new Controller();
+
         switch($_REQUEST['action'])
         {
             case 'select':
