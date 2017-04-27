@@ -27,6 +27,7 @@ function afficheMajCarte()
 {
     if (objetXHRasynchrone.readyState == 4)
     {
+        //on récupère et on affiche
         var reponse = objetXHRasynchrone.responseText;
         $('#carte').html(reponse);
 
@@ -36,18 +37,31 @@ function afficheMajCarte()
     }
 }
 
-//fonction qui demande la mise à jour de la carte avec ajax
-function majCarte()
+//fonction qui affiche les utilisateurs mis à jour en répons à ajax
+function afficheMajUtilisateurs()
 {
-    //appel du script pour récupérer les données de la carte avec ajax
+    if (objetXHRasynchrone.readyState == 4)
+    {
+        //on récupère et on affiche
+        var reponse = objetXHRasynchrone.responseText;
+        $('#utilisateurs').html(reponse);
+    }
+}
+
+//fonction qui demande la mise à jour de la carte avec ajax
+function majPage()
+{
+    //appel du script pour récupérer les données de la carte elle-même avec ajax
     requete_ajax_asynchrone("scripts/php/afficher_carte.php", "", afficheMajCarte);
+    //appel du script pour récupérer les données des utilisateurs de la carte
+    requete_ajax_asynchrone("scripts/php/afficher_utilisateurs.php", "maj=vrai", afficheMajUtilisateurs);
 
     //on fait en synchrone pour le moment parce que ça marche pas sinon
     //var reponse = requete_ajax_synchrone("scripts/php/afficher_carte.php", "");
     //$('#carte').html(reponse);
 }
 
-setInterval(majCarte, 5000);
+setInterval(majPage, 5000);
 
 //////////////////////////////////////
 //toute la partie édition

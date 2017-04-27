@@ -5,8 +5,8 @@
     session_start();
     if (isset($_REQUEST['page'])) {
         $_SESSION['template']['page'] = $_REQUEST['page'];
-        print 'fini '. $_SESSION['template']['page'];
+        echo 'fini '. $_SESSION['template']['page'];
     }
     else
-        print 'erreur';
+        echo 'erreur';
 ?>

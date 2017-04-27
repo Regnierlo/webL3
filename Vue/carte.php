@@ -6,11 +6,35 @@
     $controleur = new Controller();
 
     $_SESSION['template']['page'] = $pages['Carte'];
+    //reset des variables liées à la carte s’il y en avait
+    unset($_SESSION['carte']);
+    $_SESSION['template']['role'] = $roles['Interdit'];
+
+    //recherche le rôle de l’utilisateur pour la carte que l’on veut afficher (à corriger)
+    function definirRole($roles)
+    {
+        $donnees = $_SESSION['carte']['donnees'];
+        $publique = $donnees['publique'];
+        if ($_SESSION['template']['connecte'] == false)
+        {
+            if ($publique == true)
+                $_SESSION['template']['role'] = $roles['Consultant'];
+        }
+        else
+        {
+            $pseudo = $_SESSION['compte']['pseudo'];
+            if ($donnees[$roles['Admin']] == $pseudo)
+                $_SESSION['template']['role'] = $roles['Admin'];
+            elseif (array_search($pseudo, $donnees[$roles['Editeur']]) != false)
+                $_SESSION['template']['role'] = $roles['Editeur'];
+            elseif ($publique == true || array_search($pseudo, $donnees[$roles['Consultant']]) != false)
+                $_SESSION['template']['role'] = $roles['Consultant'];
+        }
+    }
 
     //gestion des données de la carte
     if (isset($_REQUEST['carte']))
     {
-
         $id_carte = $_REQUEST['carte'];
 
         //récupération des données de la carte
@@ -20,23 +44,13 @@
         {
             //affectation des données
             $_SESSION['carte']['id'] = $id_carte;
-            $_SESSION['carte']['nom'] = 'toto';
-            $_SESSION['carte']['role'] = $roles['Admin'];
-            $_SESSION['carte']['elt'] = null;
             $_SESSION['carte']['donnees'] = $donnees;
+            $_SESSION['carte']['nom'] = $donnees['nom'];//à corriger
+            $_SESSION['carte']['elt'] = null;
+
+            //recherche et affectation du rôle de l’utilisateur
+            definirRole($roles);
         }
-        else
-        {
-            //suppression des données de la carte si elle existait
-            unset($_SESSION['carte']);
-            $_SESSION['carte']['role'] = $roles['Interdit'];
-        }
-    }
-    else
-    {
-        //suppression des données de la carte si elle existait
-        unset($_SESSION['carte']);
-        $_SESSION['carte']['role'] = $roles['Interdit'];
     }
     include 'pages/template.php';
 ?>

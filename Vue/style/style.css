@@ -27,6 +27,17 @@ section
 	text-align: center;
 }
 
+.marge-gauche
+{
+	margin-left: 1%;
+}
+
+
+.arrondi
+{
+	border-radius: 5px;
+}
+
 .champ
 {
 	margin: 0.1em;
@@ -34,11 +45,6 @@ section
 	margin-bottom: 0.3em;
 	font-family: fantasy;
 	font-weight: bold;
-}
-
-.arrondi
-{
-	border-radius: 5px;
 }
 
 .fond-violet, .fond-consultant, .fond-publique
@@ -94,6 +100,11 @@ section
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#infos
+{
+	min-height: 80px;
 }
 
 .carte-listee

@@ -6,24 +6,24 @@
 <?php
     if ($_SESSION["template"]["connecte"] == false)
     {
-        print '<div class="droite">';
-        print   '<form class="gauche" method="'.$type_requete.'" action="inscription.php">';
-        print	    '<input id="navigation_inscription" class="champ arrondi fond-rose" type="submit" value="Inscription"/>';
-        print   '</form>';
-        print   '<form class="droite" method="'.$type_requete.'" action="connexion.php">';
-        print	    '<input id="navigation_connexion" class="champ arrondi fond-rose" type="submit" value="Connexion"/>';
-        print   '</form>';
-        print '</div>';
+        echo '<div class="droite">';
+        echo   '<form class="gauche" method="'.$type_requete.'" action="inscription.php">';
+        echo	    '<input id="navigation_inscription" class="champ arrondi fond-rose" type="submit" value="Inscription"/>';
+        echo   '</form>';
+        echo   '<form class="droite" method="'.$type_requete.'" action="connexion.php">';
+        echo	    '<input id="navigation_connexion" class="champ arrondi fond-rose" type="submit" value="Connexion"/>';
+        echo   '</form>';
+        echo '</div>';
     }
     elseif ($_SESSION["template"]["connecte"] == true)
     {
-        print '<div class="droite">';
-        print   '<form class="gauche" method="'.$type_requete.'" action="compte.php">';
-        print 	    '<input id="navigation_compte" class="champ arrondi fond-rose" type="submit" value="Mon compte"/>';
-        print   '</form>';
-        print   '<form class="droite" method="'.$type_requete.'" action="scripts/php/deconnexion.php">';
-        print 	    '<input class="champ arrondi fond-rose" type="submit" value="Déconnexion"/>';
-        print   '</form>';
-        print '</div>';
+        echo '<div class="droite">';
+        echo   '<form class="gauche" method="'.$type_requete.'" action="compte.php">';
+        echo 	    '<input id="navigation_compte" class="champ arrondi fond-rose" type="submit" value="Mon compte"/>';
+        echo   '</form>';
+        echo   '<form class="droite" method="'.$type_requete.'" action="scripts/php/deconnexion.php">';
+        echo 	    '<input class="champ arrondi fond-rose" type="submit" value="Déconnexion"/>';
+        echo   '</form>';
+        echo '</div>';
     }
 ?>

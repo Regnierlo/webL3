@@ -17,7 +17,7 @@
         <script type="text/javascript" src="scripts/js/navigation.js"></script>
         <?php
             if ($_SESSION['template']['page'] == $pages['Carte'])
-                print '<script type="text/javascript" src="scripts/js/carte.js"></script>';
+                echo '<script type="text/javascript" src="scripts/js/carte.js"></script>';
         ?>
 	</body>
 </html>

@@ -17,11 +17,11 @@
         //affichage des cartes
         foreach ($cartes as $i => $carte)
         {
-            print '<form method="'.$type_requete.'" action="carte.php">';
-            //print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
-            print   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
-            print   '<input class="champ carte-listee gauche arrondi fond-publique" type="submit" value="'.$carte["Nom"].'"/>';
-            print '</form>';
+            echo '<form method="'.$type_requete.'" action="carte.php">';
+            //echo   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
+            echo   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
+            echo   '<input class="champ carte-listee gauche arrondi fond-publique" type="submit" value="'.$carte["Nom"].'"/>';
+            echo '</form>';
         }
     }
 
@@ -71,11 +71,11 @@
             }
 
             //affichage en lui-même
-            print '<form method="'.$type_requete.'" action="carte.php">';
-            //print   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
-            print   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
-            print   '<input class="champ carte-listee gauche arrondi fond-'.$couleur_fond.'" type="submit" value="'.$carte["Nom"].'"/>';
-            print '</form>';
+            echo '<form method="'.$type_requete.'" action="carte.php">';
+            //echo   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
+            echo   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
+            echo   '<input class="champ carte-listee gauche arrondi fond-'.$couleur_fond.'" type="submit" value="'.$carte["Nom"].'"/>';
+            echo '</form>';
         }
 
     }

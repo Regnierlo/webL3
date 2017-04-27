@@ -11,12 +11,16 @@
 
         function creer_compte($pseudo, $mdp, $prenom, $nom, $email)
         {
+            $_SESSION['compte']['pseudo'] = 'toto';
+            $_SESSION['compte']['nom'] = 'TOTO';
+            $_SESSION['compte']['prenom'] = 'Toto';
+            $_SESSION['compte']['email'] = 'toto@mail.com';
             return true;
         }
 
         function recup_donnees($pseudo)
         {
-            return array('pseudo' => 'toto', 'prenom' => 'tata', 'nom' => 'titi', 'email' => 'toto@mail.com');
+            return array('pseudo' => 'pseudo', 'prenom' => 'tata', 'nom' => 'titi', 'email' => 'toto@mail.com');
         }
 
         function creationCarte()
@@ -90,10 +94,12 @@
 
         function recuperationDonneesCarte($id)
         {
-            $admin = 'pseudo';
+            $admin = 'toto';
             $editeurs = array('pseudo1', 'pseudo2', 'pseudo3');
             $consultants = array('pseudo4', 'pseudo5', 'pseudo6');
-            return array($admin, $editeurs, $consultants);
+            $publique = false;
+            $nom = 'toto';
+            return array($admin, $editeurs, $consultants, 'publique' => $publique, 'nom' => $nom);
         }
 
         function recup_carte($id)
