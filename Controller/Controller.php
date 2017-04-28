@@ -28,10 +28,10 @@
 		{
 			//On verifie que le pseudo n'existe pas déjà dans la table Compte
 			//Retourne vrai, si c'est bon
-			$COA = array ('Login','Mdp','Mail','Nom','Prenom');
-			$VAA = array ($pseudo, $mdp, $email, $nom, $prenom);
 			if(creerRequeteAvecWhere(array("login"), "COMPTE" , "login = '".$pseudo."'")=='')
 			{
+				$COA = array ('Login','Mdp','Mail','Nom','Prenom');
+				$VAA = array ($pseudo, $mdp, $email, $nom, $prenom);
 				creerInsert("COMPTE",$COA,$VAA);
 				$this->compte = new Compte($pseudo, $prenom, $nom, $email, $date);
 				return true;
@@ -268,14 +268,11 @@
 			}
 		}
 		
-		public function creationCarte($nom)
+		public function creationCarte($nom,$accessibilite)
 		{
-			$COA = array ("nomCarte","dateCreation","derniereModification","accessibilite");
-			$VAA = array ($nom, date('d-m-Y'), date('d-m-Y'),"Public");		
-			echo "pseudo :".$this->compte->getLogin();	
-			creerInsert("CARTE",$COA,$VAA);
-			$idC=creerRequeteAvecWhere("idCarteListe","v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1");
-			echo "testing2";
+			echo "pseudo :".$this->compte->getLogin();
+			insertNewCarte($nom,$accessibilite,$this->compte->getLogin());
+			$idC=substr(creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1"),0,-1);
 			$this->carte=recuperationCarte($idC);	
 			return true;
 		}
@@ -440,15 +437,112 @@
 		    array_push($n,$tab);
 		    return $n;
 		}
+
+		/*
+		*
+		*Fonctions sur les elements
+		*ATTENTION FAIRE LES REQUETES
+		*/
+
+		public function ajouterElement($nom, $valeur,$idPere)
+		{
+			//Si le pere existe
+			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idPere)!='')
+			{
+				$COA = array ("idCarteElement","nomElement","valeurElement","idElementPere");
+				$VAA = array ($this->carte->getId(), $nom, $valeur, $idPere);
+				creerInsert("ELEMENT",$COA,$VAA);
+				$idC=substr(creerRequeteAvecWhere(array("idElement"),"ELEMENT", "idCarteElement=".$this->carte->getId()." ORDER BY idElement DESC LIMIT 1"),0,-1);
+				$tmp = $xml->createElement("element");
+			
+				$attr = $xml->createAttribute('id');
+				$attr->value = $idC;
+				$attr2 = $xml->createAttribute('nom');
+				$attr2->value = $nom;
+				$attr3 = $xml->createAttribute('valeur');
+				$attr3->value = $valeur;
+			
+				$tmp -> appendChild($attr);							
+				$tmp -> appendChild($attr2);
+				$tmp -> appendChild($attr3);	
+			
+				$element = $this->carte->getXml_doc()->getElementById($idPere);
+				$element->appendChild($tmp);	
+				return true;
+			}
+			//Si le pere n'existe pas
+			else
+			{
+				return false;
+			}
+					
+		}
+		
+		public function modifierValeurElement($idElt,$newValeur)
+		{
+			//Si l'element existe
+			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idElt)!='')
+			{
+				creerUpdate("ELEMENT", "valeurElement", $newValeur, "idElement=".$idElt);
+				$element = $this->carte->getXml_doc()->getElementById($idElt);
+				$element->setAttribute("valeur", $newValeur); 
+				return true;
+			}
+			//Si l'element n'existe pas
+			else
+			{
+				return false;
+			}
+		}
+		
+		public function modifierPlaceElement($idElt,$idNewPere)
+		{
+			//Si l'element existe
+			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idElt)!='')
+			{
+				$element = $this->carte->getXml_doc()->getElementById($idElt);
+				$element->parentNode->removeChild($element);
+				$this->carte->getXml_doc()->getElementById($idNewPere)->appendChild($element);
+				return true;
+			}
+			//Si l'element n'existe pas
+			else
+			{
+				return false;
+			}
+		}
+		
+		public function supprimerElement($idElt)
+		{
+			//Si l'element existe
+			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idElt)!='')
+			{			
+				$element = $this->carte->getXml_doc()->getElementById($idElt);
+				while($element->firstChild!=null)
+				{
+					$firstC=$element->item(0);
+					creerDelete("ELEMENT", "idElement=".$firstC->getAttribute('id'));
+					supprimerElement($firstC->getAttribute('id'));
+				    	$element->removeChild($firstC);
+				}
+				return true;
+			}
+			//Si l'element n'existe pas
+			else
+			{
+				return false;
+			}
+		}
+		
 	}
 	
-	$testing = new Controller();
+	//$testing = new Controller();
 	//echo $testing->inscription('Didier', 'Jean', 'D', 'J', 'J@D');
-	echo $testing->connexion("Didier","Jean");
+	//echo $testing->connexion("Didier","Jean");
 	//echo $testing->recuperationCartesPrivees("tes04t");
 	//echo $testing->recuperationCartesPartagees("test");
 	//echo $testing->recuperationCartesPubliques();
 	//--------------------------------------echo $testing->creationCarte("Carte2");
-	echo $testing->renommerCarte(34, "LaCarte");
-	echo 'coucou';
+	//echo $testing->renommerCarte(34, "LaCarte");
+	//echo 'coucou';
 ?>
