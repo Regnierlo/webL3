@@ -298,8 +298,11 @@
 		{
 			//On verifie que la carte existe dans la table Carte et que c'est bien l'Administrateur qui la supprime
 			//Si c'est bon, on supprime la carte de la table Carte et on vide $carte
+			//On supprime aussi tous les elements liés à ce compte.
 			if($this->carte->getAdmin()==$this->compte->getPseudo() && creerRequeteAvecWhere("idCarte", "CARTE" , "idCarte=".$idCarte)!='')
 			{
+				supprimerElement($this->carte->getRacine);
+				creerDelete("LISTE_CARTE", "idCarte=".$idCarte);
 				creerDelete("CARTE", "idCarte=".$idCarte);
 				$this->carte=null;
 				return true;
