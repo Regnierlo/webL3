@@ -1,9 +1,9 @@
 <!--page d’une carte, on change récupère les données et on appelle le template-->
 
 <?php
-    include 'config/config.php';
-    include $adresse_controleur;
-    $controleur = new Controller();
+    include_once 'config/config.php';
+    //include_once $adresse_controleur;
+    $controleur = $_SESSION['controleur'];
 
     $_SESSION['template']['page'] = $pages['Carte'];
     //reset des variables liées à la carte s’il y en avait
@@ -52,5 +52,5 @@
             definirRole($roles);
         }
     }
-    include 'pages/template.php';
+    include_once 'pages/template.php';
 ?>

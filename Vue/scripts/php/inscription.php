@@ -1,9 +1,9 @@
 <!--script php qui gère l’inscription d’un utilisateur-->
 
 <?php
-    include '../../config/config.php';
-    include "../../$adresse_controleur";
-    $controleur = new Controller();
+    include_once '../../config/config.php';
+    //include_once "../../$adresse_controleur";
+    $controleur = $_SESSION['controleur'];
 
     //récupération sécurisée des champs
     $pseudo = htmlentities($_REQUEST['saisie_pseudo']);
@@ -13,7 +13,7 @@
     $mail = htmlentities($_REQUEST['saisie_mail']);
 
     //vérification des valeurs de connexion
-    $valide = $controleur->creer_compte($pseudo, $mdp, $prenom, $nom, $mail);
+    $valide = $controleur->inscription($pseudo, $mdp, $prenom, $nom, $mail);
 
     //redirection
     if ($valide == true)

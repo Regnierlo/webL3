@@ -4,12 +4,19 @@
     class Controller
     {
 
-        function connecter($pseudo, $mdp)
+        private $carte;
+
+        public function getCarte()
+        {
+            return $this->carte;
+        }
+
+        function connexion($pseudo, $mdp)
         {
             return false;
         }
 
-        function creer_compte($pseudo, $mdp, $prenom, $nom, $email)
+        function inscription($pseudo, $mdp, $prenom, $nom, $email)
         {
             $_SESSION['compte']['pseudo'] = 'toto';
             $_SESSION['compte']['nom'] = 'TOTO';
@@ -114,6 +121,34 @@
                             <elt id="elt7" valeur="sujet7"/>
                         </elt>
                     </elt>';
+        }
+
+        /**
+         * @param $id identifiant de la carte
+         * @return array 0 id, 1 nom, 2 date création, 3 dernière modification, 4 accessibilité, 5 nombre éléments, 6 fichier xml, 7 racine, 8 editeurs, 9 consultants
+         */
+        function recuperationCarte($id)
+        {
+            $nom = 'toto';
+            $dateCreation = '10/12/2015';
+            $derniereModification = '23/01/2017';
+            $accessibilite = 'Public';
+            $nbElement = '7';
+            $xml = '<?xml version="1.0"?>
+                    <elt id="elt1" valeur="sujet1">
+                        <elt id="elt2" valeur="sujet2"/>
+                        <elt id="elt3" valeur="sujet3">
+                            <elt id="elt4" valeur="sujet4"/>
+                            <elt id="elt5" valeur="sujet5"/>
+                            <elt id="elt6" valeur="sujet6"/>
+                            <elt id="elt7" valeur="sujet7"/>
+                        </elt>
+                    </elt>';
+            $racine = 'elt1';
+            $editeurs = array('pseudo1', 'pseudo2', 'pseudo3');
+            $consultants = array('pseudo4', 'pseudo5', 'pseudo6');
+            $this->carte = array($id, $nom, $dateCreation, $derniereModification, $accessibilite, $nbElement, $xml, $racine, $editeurs, $consultants);
+            return true;
         }
     }
 ?>

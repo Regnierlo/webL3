@@ -1,7 +1,7 @@
 <!--script php qui gère la déconnexion d’un utilisateur-->
 
 <?php
-    include '../../config/config.php';
+    include_once '../../config/config.php';
 
     //procédure de déconnexion
     $_SESSION['pseudo'] = null;

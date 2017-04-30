@@ -1,9 +1,9 @@
 <!--script php qui gère la création d’une carte-->
 
 <?php
-    include '../../config/config.php';
-    include "../../$adresse_controleur";
-    $controleur = new Controller();
+    include_once '../../config/config.php';
+    //include_once "../../$adresse_controleur";
+    $controleur = $_SESSION['controleur'];
 
     //récupération sécurisée des champs
     $nom_carte = htmlentities($_REQUEST['saisie_nom_carte']);

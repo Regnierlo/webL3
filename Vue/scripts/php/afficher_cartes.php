@@ -1,9 +1,9 @@
 <!--affiche les cartes publiques ou sur la page du compte d’un utilisateur connecté-->
 
 <?php
-    include 'config/config.php';
-    include $adresse_controleur;
-    $controleur = new Controller();
+    include_once 'config/config.php';
+    //include_once $adresse_controleur;
+    $controleur = $_SESSION['controleur'];
 
     function affiche_publiques($type_requete, $controleur)
     {

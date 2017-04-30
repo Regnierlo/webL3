@@ -1,36 +1,34 @@
 <?php
     //recherche le rôle de l’utilisateur pour la carte que l’on veut afficher (à corriger)
-function definirRole($roles)
-{
-    $donnees = $_SESSION['carte']['donnees'];
-    $publique = $donnees['publique'];
-    if ($_SESSION['template']['connecte'] == false)
+    function definirRole($roles)
     {
-        if ($publique == true)
-            $_SESSION['template']['role'] = $roles['Consultant'];
+        $donnees = $_SESSION['carte']['donnees'];
+        $publique = $donnees['publique'];
+        if ($_SESSION['template']['connecte'] == false)
+        {
+            if ($publique == true)
+                $_SESSION['template']['role'] = $roles['Consultant'];
+        }
+        else
+        {
+            $pseudo = $_SESSION['compte']['pseudo'];
+            if ($donnees[$roles['Admin']] == $pseudo)
+                $_SESSION['template']['role'] = $roles['Admin'];
+            elseif (array_search($pseudo, $donnees[$roles['Editeur']]) != false || $donnees[$roles['Editeur']][0] == $pseudo)
+                $_SESSION['template']['role'] = $roles['Editeur'];
+            elseif ($publique == true || array_search($pseudo, $donnees[$roles['Consultant']]) != false|| $donnees[$roles['Consultant']][0] == $pseudo)
+                $_SESSION['template']['role'] = $roles['Consultant'];
+        }
     }
-    else
-    {
-        $pseudo = $_SESSION['compte']['pseudo'];
-        var_dump($pseudo);
-        var_dump($donnees);
-        if ($donnees[$roles['Admin']] == $pseudo)
-            $_SESSION['template']['role'] = $roles['Admin'];
-        elseif (array_search($pseudo, $donnees[$roles['Editeur']]) != false || $donnees[$roles['Editeur']][0] == $pseudo)
-            $_SESSION['template']['role'] = $roles['Editeur'];
-        elseif ($publique == true || array_search($pseudo, $donnees[$roles['Consultant']]) != false|| $donnees[$roles['Consultant']][0] == $pseudo)
-            $_SESSION['template']['role'] = $roles['Consultant'];
-    }
-}
 
     //si c’est une mise à jour, on la traite ici (c’est pas le mieux à cet endroit en effet)
     if (isset($_REQUEST['maj']))
         if ($_REQUEST['maj'] == 'vrai')
         {
             //inclusions indispensables
-            include '../../config/config.php';
-            include_once "../../$adresse_controleur";
-            $controleur = new Controller();
+            include_once '../../config/config.php';
+            //include_once_once "../../$adresse_controleur";
+            $controleur = $_SESSION['controleur'];
 
             //récupération des nouvelles données
             $donnees = $controleur->recuperationDonneesCarte($_SESSION['carte']['id']);

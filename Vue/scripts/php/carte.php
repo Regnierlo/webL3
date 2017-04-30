@@ -5,9 +5,9 @@
     if (isset($_REQUEST['action']))
     {
         //inclusion du contrôleur
-        include '../../config/config.php';
-        include "../../$adresse_controleur";
-        $controleur = new Controller();
+        include_once '../../config/config.php';
+        //include_once "../../$adresse_controleur";
+        $controleur = $_SESSION['controleur'];
 
         switch($_REQUEST['action'])
         {

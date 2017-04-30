@@ -3,22 +3,22 @@
 <?php
 	if ($_SESSION["template"]["page"] == $pages["Accueil"])
 	{
-		include ("pages/accueil.php");
+		include_once ("pages/accueil.php");
 	}
 	elseif ($_SESSION["template"]["page"] == $pages["Compte"])
 	{
-		include ("pages/compte.php");
+		include_once ("pages/compte.php");
 	}
 	elseif ($_SESSION["template"]["page"] == $pages["Carte"])
 	{
-		include ("pages/carte.php");
+		include_once ("pages/carte.php");
 	}
 	elseif ($_SESSION["template"]["page"] == $pages["Connexion"])
 	{
-		include ("pages/connexion.php");
+		include_once ("pages/connexion.php");
 	}
 	elseif ($_SESSION["template"]["page"] == $pages["Inscription"])
 	{
-		include ("pages/inscription.php");
+		include_once ("pages/inscription.php");
 	}
 ?>

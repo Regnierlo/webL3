@@ -9,9 +9,9 @@
 	<body class="fond-rose">
 
 		<header class="fond-violet">
-			<?php include("entete.php");?>
+			<?php include_once("entete.php");?>
 		</header>
-		<?php include("contenu.php");?>
+		<?php include_once("contenu.php");?>
         <script type="text/javascript" src="scripts/js/jquery.js"></script>
         <script type="text/javascript" src="scripts/js/ajax.js"></script>
         <script type="text/javascript" src="scripts/js/navigation.js"></script>

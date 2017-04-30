@@ -8,7 +8,7 @@
         echo '<section id="carte" class="';
                 if ($_SESSION['template']['role'] == $roles["Consultant"]) echo 'large_100'; else echo 'large_66';
                 echo ' gauche fond-listique">';
-            include 'scripts/php/afficher_carte.php';
+            include_once 'scripts/php/afficher_carte.php';
         echo '</section>';
         if ($_SESSION['template']['role'] == $roles["Admin"] && $_SESSION["template"]["connecte"] == true)
         {
@@ -25,7 +25,7 @@
                 <section id="administration">
                     <p>Gérer les droits et la carte</p>
                     <table id="utilisateurs" class="large_100">';
-            include 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
+            include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
             echo   '</table>
                     <input id="saisie-pseudo-partage" class="champ gauche large_50 arrondi fond-violet" type="text"/>
                     <input id="partager-carte" class="champ gauche large_50 arrondi fond-violet" type="button" value="Partager"/>
@@ -50,7 +50,7 @@
                 <section id="administration">
                     <p>Liste des utilisateurs ayant des droits</p>
                     <table id="utilisateurs" class="large_100">';
-            include 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
+            include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
             echo   '</table>
                 </section>
             </div>';

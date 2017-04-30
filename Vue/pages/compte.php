@@ -23,7 +23,7 @@
             <h1>Mes cartes</h1>
             <section id="cartes" class="fond-listique">';
         //affichage des carte
-        include 'scripts/php/afficher_cartes.php';
+        include_once 'scripts/php/afficher_cartes.php';
 
         echo '</section>';
     }

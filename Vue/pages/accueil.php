@@ -4,6 +4,6 @@
 <section id="cartes" class="fond-listique">
     <?php
         //affichage des cartes
-        include 'scripts/php/afficher_cartes.php';
+        include_once 'scripts/php/afficher_cartes.php';
     ?>
 </section>

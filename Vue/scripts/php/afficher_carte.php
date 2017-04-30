@@ -5,16 +5,16 @@
 
     if (file_exists('config/config.php'))
     {
-        include 'config/config.php';
-        include_once $adresse_controleur;
+        include_once 'config/config.php';
+        //include_once_once $adresse_controleur;
     }
     else
     {
         $placement = 'php';
-        include '../../config/config.php';
-        include_once "../../$adresse_controleur";
+        include_once '../../config/config.php';
+        //include_once_once "../../$adresse_controleur";
     }
-    $controleur = new Controller();
+    $controleur = $_SESSION['controleur'];
 
     //Récupération du doc xsl
     $xslDoc = new DOMDocument();
