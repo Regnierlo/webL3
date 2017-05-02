@@ -12,7 +12,7 @@
 		private $compte;
 		private $carte;
 		private $listeCartesPriv;
-		private $ListeCartesPart;
+		private $listeCartesPart;
 		private $listeCartePub;
 		
 		public function __construct()
@@ -20,8 +20,33 @@
 			$this->compte=null;
 			$this->carte=  new Carte(null,null,null,null,null,null,null,null,"Didier",null,null);//null;
 			$this->listeCartesPriv=null;
-			$this->ListeCartesPart=null;
+			$this->listeCartesPart=null;
 			$this->listeCartePub=null;			
+		}
+		//Getter
+		public function getCompte()
+		{
+		    return $this->compte;
+		}
+		
+		public function getCarte()
+		{
+		    return $this->carte;
+		}
+		
+		public function getListeCartesPriv()
+		{
+		    return $this->listeCartesPriv;
+		}
+	
+		public function getListeCartesPart()
+		{
+		    return $this->listeCartesPart;
+		}
+		
+		public function getListeCartesPub()
+		{
+		    return $this->listeCartesPub;
 		}
 		
 		public function inscription($pseudo, $mdp, $prenom, $nom, $email)
@@ -30,10 +55,11 @@
 			//Retourne vrai, si c'est bon
 			if(creerRequeteAvecWhere(array("login"), "COMPTE" , "login = '".$pseudo."'")=='')
 			{
-				$COA = array ('Login','Mdp','Mail','Nom','Prenom');
-				$VAA = array ($pseudo, $mdp, $email, $nom, $prenom);
+				$date=date("Y-m-d H:i:s");
+				$COA = array ('login','mdp','mail','nom','prenom','dateCreation');
+				$VAA = array ($pseudo, $mdp, $email, $nom, $prenom, $date);
 				creerInsert("COMPTE",$COA,$VAA);
-				$this->compte = new Compte($pseudo, $prenom, $nom, $email, $date);
+				$this->compte = new Compte($pseudo, $nom, $prenom, $email, $date);
 				return true;
 			}	
 			//Retourne faux, si il y a un probleme
@@ -112,6 +138,9 @@
 							
 						}
 					}
+					
+					
+					
 					$fichier_xml = $xml->saveXML();	
 					$req3 = creerRequeteAvecWhere(array("login","nomGroupe"),"v_LISTE_CARTE","idCarteListe = ".$idCarte);
 					if($req3 <>"")
@@ -124,7 +153,8 @@
 								array_push($listeE,$listeLogin[$i][0]);
 							else if($listeLogin[$i][1] == "Consultant")
 								array_push($listeC,$listeLogin[$i][0]);
-	                    $this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $listeE, $listeC);
+	                    				$admin = creerRequeteAvecWhere(array("idCompteListe"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = 'Administrateur'");
+	                    				$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin, $listeE, $listeC);
 						return true;
 					}
 					else
@@ -181,9 +211,11 @@
 		public function recuperationCartesPrivees($pseudo)
 		{
 			$res = creerRequeteAvecWhere(array("idCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
+			$res 2 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Editeur'");
+			$res 3 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Consultant'");
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
-			if($res != '')
+			if($res != '' || $res2 != '' || $res3 != '')
 			{
 				$tab = array();
 				$val ="";
@@ -199,7 +231,32 @@
 						$val = $val."".$res[$i];
 					}
 				}
-				return $res;
+				for ($i=0;$i<strlen($res2);$i++)
+				{
+					if ($res2[$i] == "|")
+					{
+						array_push($tab,$val);
+						$val ="";
+					}
+					else
+					{
+						$val = $val."".$res2[$i];
+					}
+				}
+				for ($i=0;$i<strlen($res3);$i++)
+				{
+					if ($res3[$i] == "|")
+					{
+						array_push($tab,$val);
+						$val ="";
+					}
+					else
+					{
+						$val = $val."".$res3[$i];
+					}
+				}
+				$listeCartesPriv = $val;
+				return true;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte privée ou si le pseudo est mauvais
 			else
@@ -230,7 +287,8 @@
 						$val = $val."".$res[$i];
 					}
 				}
-				return $res;
+				$listeCartesPart = $val;
+				return true;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
 			else
@@ -259,7 +317,8 @@
 						$val = $val."".$res[$i];
 					}
 				}
-				return $res;
+				$listeCartesPu1 = $val;
+				return true;
 			}	
 			//Retourne faux, si il y a un probleme
 			else
@@ -441,12 +500,6 @@
 		    return $n;
 		}
 
-		/*
-		*
-		*Fonctions sur les elements
-		*ATTENTION FAIRE LES REQUETES
-		*/
-
 		public function ajouterElement($nom, $valeur,$idPere)
 		{
 			//Si le pere existe
@@ -539,9 +592,9 @@
 		
 	}
 	
-	//$testing = new Controller();
+	$testing = new Controller();
 	//echo $testing->inscription('Didier', 'Jean', 'D', 'J', 'J@D');
-	//echo $testing->connexion("Didier","Jean");
+	echo $testing->connexion("Didier","Jean");
 	//echo $testing->recuperationCartesPrivees("tes04t");
 	//echo $testing->recuperationCartesPartagees("test");
 	//echo $testing->recuperationCartesPubliques();
