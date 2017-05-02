@@ -4,6 +4,7 @@
     include_once '../../config/config.php';
     //include_once "../../$adresse_controleur";
     $controleur = $_SESSION['controleur'];
+    var_dump( $controleur);
 
     //récupération sécurisée des champs
     $pseudo = htmlentities($_REQUEST['saisie_pseudo']);
@@ -18,7 +19,6 @@
     //redirection
     if ($valide == true)
     {
-        $_SESSION['pseudo'] = $pseudo;
         $_SESSION['template']['connecte'] = true;
         header('Location: ../../compte.php');
     }

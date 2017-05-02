@@ -9,7 +9,7 @@
     $nom_carte = htmlentities($_REQUEST['saisie_nom_carte']);
     var_dump($_REQUEST['saisie_nom_carte']);
 
-    $id = $controleur->creationCarte($nom_carte);
+    $id = $controleur->creationCarte($nom_carte, 'Prive');
     var_dump($id);
 
     if ($id != false)

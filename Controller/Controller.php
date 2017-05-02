@@ -1,11 +1,19 @@
 <?php
-	require ('../Modele/Carte.php');
-	require ('../Modele/Compte.php');
-	require ('../Modele/Element.php');
-	require ('../Modele/GenerationRequetes/select.php');
-	require ('../Modele/GenerationRequetes/delete.php');
-	require ('../Modele/GenerationRequetes/insert.php');
-	require ('../Modele/GenerationRequetes/update.php');
+	//on fait les imports du modèle, en essayant d’y avoir accès quel que soit l’appelant comme c’est de l’include
+	$pred = '';
+	if (!file_exists('../Modele/Carte.php'))
+	{
+		$pred = '../';
+		while (!file_exists($pred.'../Modele/Carte.php'))
+			$pred = $pred.$pred;
+	}
+	require ($pred.'../Modele/Carte.php');
+	require ($pred.'../Modele/Compte.php');
+	require ($pred.'../Modele/Element.php');
+	require ($pred.'../Modele/GenerationRequetes/select.php');
+	require ($pred.'../Modele/GenerationRequetes/delete.php');
+	require ($pred.'../Modele/GenerationRequetes/insert.php');
+	require ($pred.'../Modele/GenerationRequetes/update.php');
 	
 	class Controller
 	{
@@ -211,8 +219,8 @@
 		public function recuperationCartesPrivees($pseudo)
 		{
 			$res = creerRequeteAvecWhere(array("idCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
-			$res 2 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Editeur'");
-			$res 3 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Consultant'");
+			$res2 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Editeur'");
+			$res3 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Consultant'");
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
 			if($res != '' || $res2 != '' || $res3 != '')
@@ -500,7 +508,7 @@
 		    return $n;
 		}
 
-		public function ajouterElement($nom, $valeur,$idPere)
+		/*public function ajouterElement($nom, $valeur,$idPere)
 		{
 			//Si le pere existe
 			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idPere)!='')
@@ -532,7 +540,7 @@
 				return false;
 			}
 					
-		}
+		}*/
 		
 		public function modifierValeurElement($idElt,$newValeur)
 		{
@@ -594,7 +602,7 @@
 	
 	$testing = new Controller();
 	//echo $testing->inscription('Didier', 'Jean', 'D', 'J', 'J@D');
-	echo $testing->connexion("Didier","Jean");
+	//echo $testing->connexion("Didier","Jean");
 	//echo $testing->recuperationCartesPrivees("tes04t");
 	//echo $testing->recuperationCartesPartagees("test");
 	//echo $testing->recuperationCartesPubliques();

@@ -1,11 +1,12 @@
 <!--configuration et variables utiles pour la gestion des templates et d’autres éléments de la partie vue-->
 
 <?php
-
-
 	//variables utiles
 	$type_requete = 'get';
-	$adresse_controleur = 'test/test.php';
+	//$adresse_controleur = 'test/test.php';
+
+    //insertion du contrôleur
+    $adresse_controleur = '../Controller/Controller.php';
 	if (file_exists($adresse_controleur))
         include_once "$adresse_controleur";
 	elseif (file_exists("../$adresse_controleur"))

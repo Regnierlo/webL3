@@ -56,3 +56,18 @@ function requete_ajax_asynchrone(script, parametres, fonction_traitement)
         objetXHRasynchrone.send(parametres);
 }
 
+/*
+    Pour la sécurité des appels php avec ajax, un équivalent de htmlspecialchars pour javascript
+ */
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+

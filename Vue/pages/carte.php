@@ -4,7 +4,11 @@
         echo '<h1>Cette carte n’existe pas ou ne vous est pas accessible.</h1>';
     else
     {
-        echo '<h1>'.$_SESSION['carte']['nom'].'</h1>';
+        echo '<h1>'.$controleur->getCarte()->getNom().'</h1>';
+        echo '<p>';
+        echo 'Création de la carte : '.$controleur->getCarte()->getDateCreation().'.<br/>';
+        echo 'Dernière modification : '.$controleur->getCarte()->getDateModification().'.<br/>';
+        echo '</p>';
         echo '<section id="carte" class="';
                 if ($_SESSION['template']['role'] == $roles["Consultant"]) echo 'large_100'; else echo 'large_66';
                 echo ' gauche fond-listique">';
@@ -27,6 +31,8 @@
                     <table id="utilisateurs" class="large_100">';
             include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
             echo   '</table>
+                    <input id="coche-publique" class="champ gauche large_50 arrondi fond-violet" type="checkbox" value="Publique"/>
+                    <input id="coche-privee" class="champ gauche large_50 arrondi fond-violet" type="checkbox" value="Privée"/>
                     <input id="saisie-pseudo-partage" class="champ gauche large_50 arrondi fond-violet" type="text"/>
                     <input id="partager-carte" class="champ gauche large_50 arrondi fond-violet" type="button" value="Partager"/>
                     <input id="saisie-nom-carte" class="champ gauche large_50 arrondi fond-violet" type="text"/>

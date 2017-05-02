@@ -78,12 +78,14 @@ setInterval(majPage, 5000);
 
 //////////////////////////////////////
 //toute la partie édition
+//////////////////////////////////////
 
 //changement du nom de l’élément sélectionné
 function renommerElt(nom)
 {
     alert("changer nom " + nom);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=renommer_elt&nom="+nom);
+    nom_envoye = escapeHtml(nom);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=renommer_elt&nom="+nom_envoye);
     alert(reponse);
     majPage();
 }
@@ -93,12 +95,15 @@ $('#renommer').on('click', function()
 });
 
 //création d’un fils pour l’élément sélectionné
-function creerFils()
-{
+function creerFils() {
     alert("créer fils ");
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=creer_fils");
-    alert(reponse);
-    majPage();
+    var id_pere = id_gen;
+    if (id_pere != null)
+    {
+        var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=creer_fils&id_pere=" + id_pere);
+        alert(reponse);
+        majPage();
+    }
 }
 $('#ajouter-fils').on('click', creerFils);
 
@@ -106,9 +111,12 @@ $('#ajouter-fils').on('click', creerFils);
 function creerFrere()
 {
     alert("créer frère ");
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=creer_frere");
-    alert(reponse);
-    majPage();
+    var id_pere = $('#'+id_gen).parent().getAttribute('id');
+    if (id_pere != null) {
+        var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=creer_fils&id_pere=" + id_pere);
+        alert(reponse);
+        majPage();
+    }
 }
 $('#ajouter-frere').on('click', creerFrere);
 
@@ -126,7 +134,8 @@ $('#supprimer').on('click', supprimerElt);
 function ajouterEdition(pseudo)
 {
     alert("ajouter édition " + pseudo);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=ajouter_edition&pseudo="+pseudo);
+    pseudo_envoye = escapeHtml(pseudo);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=ajouter_edition&pseudo="+pseudo_envoye);
     majPage();
 }
 
@@ -134,7 +143,8 @@ function ajouterEdition(pseudo)
 function supprimerEdition(pseudo)
 {
     alert("supprimer édition " + pseudo);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=supprimer_edition&pseudo="+pseudo);
+    pseudo_envoye = escapeHtml(pseudo);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=supprimer_edition&pseudo="+pseudo_envoye);
     alert(reponse);
     majPage();
 }
@@ -153,7 +163,8 @@ $('.autoriser-edition').on('click', function()
 function partager(pseudo)
 {
     alert("partager " + pseudo);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=partager&pseudo="+pseudo);
+    pseudo_envoye = escapeHtml(pseudo);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=partager&pseudo="+pseudo_envoye);
     alert(reponse);
     majPage();
 }
@@ -166,7 +177,8 @@ $('#partager-carte').on('click', function(e)
 function arreterPartage(pseudo)
 {
     alert("arrêter partage " + pseudo);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=arreter_partage&pseudo="+pseudo);
+    pseudo_envoye = escapeHtml(pseudo);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=arreter_partage&pseudo="+pseudo_envoye);
     alert(reponse);
     majPage();
 }
@@ -181,7 +193,8 @@ $('.retirer-partage').on('click', function(e)
 function renommerCarte(nom)
 {
     alert("changer nom carte " + nom);
-    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=renommer_carte&nom="+nom);
+    nom_envoye = escapeHtml(nom);
+    var reponse = requete_ajax_synchrone('scripts/php/carte.php', "action=renommer_carte&nom="+nom_envoye);
     alert(reponse);
     majPage();
 }

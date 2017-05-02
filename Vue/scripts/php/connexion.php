@@ -15,7 +15,6 @@
     //redirection
     if ($valide == true)
     {
-        $_SESSION['pseudo'] = $pseudo;
         $_SESSION['template']['connecte'] = true;
         header('Location: ../../compte.php');
     }

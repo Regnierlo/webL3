@@ -24,7 +24,9 @@
         $xslDoc->load('../xsl/carte.xsl');
 
     //Récupération du doc xml
-    $xmlDoc = simplexml_load_string($controleur->recup_carte($_SESSION['carte']['id']));
+    $controleur->recuperationCarte($controleur->getCarte()->getId());
+    $xmlDoc = simplexml_load_string($controleur->getCarte()->getXml_doc());
+    //$xmlDoc = simplexml_load_string($controleur->recup_carte($_SESSION['carte']['id']));
     //$xmlDoc = new DOMDocument();
     //$xmlDoc->load('test/test.xml');
 
