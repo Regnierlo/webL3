@@ -1,19 +1,11 @@
 <?php
-	//on fait les imports du modèle, en essayant d’y avoir accès quel que soit l’appelant comme c’est de l’include
-	$pred = '';
-	if (!file_exists('../Modele/Carte.php'))
-	{
-		$pred = '../';
-		while (!file_exists($pred.'../Modele/Carte.php'))
-			$pred = $pred.$pred;
-	}
-	require ($pred.'../Modele/Carte.php');
-	require ($pred.'../Modele/Compte.php');
-	require ($pred.'../Modele/Element.php');
-	require ($pred.'../Modele/GenerationRequetes/select.php');
-	require ($pred.'../Modele/GenerationRequetes/delete.php');
-	require ($pred.'../Modele/GenerationRequetes/insert.php');
-	require ($pred.'../Modele/GenerationRequetes/update.php');
+	require ('../Modele/Carte.php');
+	require ('../Modele/Compte.php');
+	require ('../Modele/Element.php');
+	require ('../Modele/GenerationRequetes/select.php');
+	require ('../Modele/GenerationRequetes/delete.php');
+	require ('../Modele/GenerationRequetes/insert.php');
+	require ('../Modele/GenerationRequetes/update.php');
 	
 	class Controller
 	{
@@ -109,7 +101,6 @@
 		
 		public function recuperationCarte($idCarte)
 		{
-		
 			//On verifie si la carte existe dans la table Carte
 			$res = creerRequeteAvecWhere(array('nomCarte','dateCreation','derniereModification','Accessibilite'), "CARTE", "idCarte=".$idCarte);
 			//On retourne le fichier XML, Si la carte existe, on retourne le fichier XML, l'administrateur, le nom, les editeurs, les consultants, publique.
@@ -147,32 +138,35 @@
 						}
 					}
 					
-					
+				
 					
 					$fichier_xml = $xml->saveXML();	
 					$req3 = creerRequeteAvecWhere(array("login","nomGroupe"),"v_LISTE_CARTE","idCarteListe = ".$idCarte);
+					$listeE = array();
+					$listeC = array();
+					
 					if($req3 <>"")
 					{	
+					
 						$listeLogin = $this->requeteDansTableau($req3);
-						$listeE = array();
-						$listeC = array();
+						
 						for ($i=0;$i<count($listeLogin);$i++) //Affectation des logins aux différentes listes
 							if ($listeLogin[$i][1] == "Editeur")
 								array_push($listeE,$listeLogin[$i][0]);
 							else if($listeLogin[$i][1] == "Consultant")
 								array_push($listeC,$listeLogin[$i][0]);
-	                    				$admin = creerRequeteAvecWhere(array("idCompteListe"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = 'Administrateur'");
-	                    				$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin, $listeE, $listeC);
-						return true;
+								
+        				$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
+	                    				
+	                    				
+						//return true;
 					}
-					else
+					/*else
 					{
-						return false;
-					}
+						//return false;
+					}*/
+					$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin[0][0], $listeE, $listeC);
 					
-			
-					
-
 					return true; //ou retourner la carte
 
 				}
@@ -446,26 +440,83 @@
 		
 		public function sauvegarderCarte()
 		{
-			$dom = new DOMDocument();
-			$dom->loadXML($this->carte->getXml_doc());
-			
-			echo $dom;
-			
-			$listeElt = $this->carte->getXml_doc()->getElementsByTagName('element');
-			echo 'dzdza';
+
+			$req = creerRequeteAvecWhere(array("idCarte"),"CARTE","idCarte =".$this->carte->getId());
+            if($req == "")
+            {
+				creerInsert("CARTE", array ("nomCarte","accessibilite"),array($this->carte->getNom(),$this->carte->getPublique()));
+            }
+            else
+			{
+                creerUpdate("CARTE", array("nomCarte","accessibilite"), array($this->carte->getNom(),$this->carte->getPublique()), "idCarte=" . $this->carte->getId()); 
+            }
+
+			$dom = new DOMDocument( "1.0", "ISO-8859-15" );
+			$dom->loadXML($this->carte->getXml_doc()); 
+
+			$listeElt = $dom->getElementsByTagName("element");
 			$tabDonnees = array();
 			$tmp = array();
 			
-			foreach($listeElt as $e)
-			{
-				echo $e->getAttribute("id");
-				array_push($tmp,$e->getAttribute("id")); 
-				array_push($tmp,$e->getAttribute("nom"));
-				array_push($tmp,$e->getAttribute("valeur"));
-				array_push($tmp,$e->getAttribute("idPere"));
-				array_push($tabDonnees,$tmp);
+
+			foreach ($listeElt as $e) {
+				array_push($tmp, $e->getAttribute("id"));
+				array_push($tmp, $e->getAttribute("nom"));
+				array_push($tmp, $e->getAttribute("valeur"));
+				array_push($tmp, $e->getAttribute("idPere"));
+				array_push($tabDonnees, $tmp);
 				$tmp = array();
 			}
+
+
+			for ($i = 0; $i < count($tabDonnees); $i++) 
+			{
+				if (creerRequeteAvecWhere(array("idElement"), "ELEMENT", "idElement=" . $tabDonnees[$i][0]) == "")
+				{
+					if ($i == 0)
+						creerInsert("ELEMENT", array("idCarteElement", "nomElement", "valeurElement", "idElementPere",  "racine"), array($this->carte->getId(), $tabDonnees[$i][1], $tabDonnees[$i][2], $tabDonnees[$i][3], " ", "Administrateur"));
+					else
+						creerInsert("ELEMENT", array("idCarteElement", "nomElement", "valeurElement", "idElementPere", "valeurEntreBalise", "racine"), array($this->carte->getId(), $tabDonnees[$i][1], $tabDonnees[$i][2], $tabDonnees[$i][3], NULL));
+				}
+				else
+				{
+					if ($i == 0)	
+						$racine = "Administrateur";
+					else
+						$racine = NULL;
+					creerUpdate("ELEMENT",array("nomElement", "valeurElement", "idElementPere",  "racine"),array($tabDonnees[$i][1], $tabDonnees[$i][2], $tabDonnees[$i][3],  $racine),"idElement =".$tabDonnees[$i][0]);
+				}
+			}
+			
+			$lC = $this->carte->getListeConsultant();
+			$lE = $this->carte->getListeEditeur();
+			
+			for ($i = 0; $i < count($lC);$i++)
+			{
+				if (creerRequeteAvecWhere(array("nomGroupe"), "v_LISTE_CARTE", "login = \"" .$lC[$i]."\" AND idCarteListe = ".$this->carte->getId()) == "")
+					creerInsert("LISTE_CARTE", array("idCarteListe", "idCompteListe", "nomGroupe"), array($this->carte->getId(),$lC[$i],"Consultant"));
+				else 
+				{
+					$idCompte = $this->requeteDansTableau(creerRequeteAvecWhere(array("idCompte"), "COMPTE", "login = \"".$lC[$i]."\""));
+					creerUpdate("LISTE_CARTE",array("nomGroupe"),array("Consultant")," idCarteListe=".$this->carte->getId()."AND idCompteListe = ".$idCompte[0][0]);
+				}
+			}
+			
+			
+			
+			for ($i = 0; $i < count($lE);$i++)
+			{
+				if (creerRequeteAvecWhere(array("nomGroupe"), "v_LISTE_CARTE", "login = \"" .$lE[$i]."\" AND idCarteListe = ".$this->carte->getId()) == "")
+					creerInsert("LISTE_CARTE", array("idCarteListe", "idCompteListe", "nomGroupe"), array($this->carte->getId(),$lE[$i],"Consultant"));
+				else 
+				{
+					$idCompte = $this->requeteDansTableau(creerRequeteAvecWhere(array("idCompte"), "COMPTE", "login = \"".$lE[$i]."\""));
+					creerUpdate("LISTE_CARTE",array("nomGroupe"),array("Consultant")," idCarteListe=".$this->carte->getId()."AND idCompteListe = ".$idCompte[0][0]);
+				}
+			}
+
+
+
 		}
 
 
@@ -474,10 +525,10 @@
 			$tab = array();
 			$n = array();
 		    $val ="";
-		
+
 		    for ($i=0;$i<strlen($chaine);$i++)
 		    {
-		    
+
 				if($chaine[$i] == "<")
 				{
 					array_push($tab,$val);
@@ -497,7 +548,7 @@
 		        else
 		        {
 		            $val = $val.$chaine[$i];
-		      
+
 		        }
 		    }
 		    if ($val == "")
@@ -508,7 +559,7 @@
 		    return $n;
 		}
 
-		/*public function ajouterElement($nom, $valeur,$idPere)
+		public function ajouterElement($nom, $valeur,$idPere)
 		{
 			//Si le pere existe
 			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idPere)!='')
@@ -540,7 +591,7 @@
 				return false;
 			}
 					
-		}*/
+		}
 		
 		public function modifierValeurElement($idElt,$newValeur)
 		{
@@ -598,9 +649,20 @@
 			}
 		}
 		
+		
+		
+		
 	}
+
+
 	
-	$testing = new Controller();
+	$t = new Controller();
+	$t->recuperationCarte(1);
+	$t->sauvegarderCarte();
+	echo "fin";
+	
+
+//	$testing->test();
 	//echo $testing->inscription('Didier', 'Jean', 'D', 'J', 'J@D');
 	//echo $testing->connexion("Didier","Jean");
 	//echo $testing->recuperationCartesPrivees("tes04t");
