@@ -1,11 +1,15 @@
 <?php
-	require ('../Modele/Carte.php');
-	require ('../Modele/Compte.php');
-	require ('../Modele/Element.php');
-	require ('../Modele/GenerationRequetes/select.php');
-	require ('../Modele/GenerationRequetes/delete.php');
-	require ('../Modele/GenerationRequetes/insert.php');
-	require ('../Modele/GenerationRequetes/update.php');
+	$pre = '';
+	while (!file_exists($pre.'../Modele/Carte.php'))
+		$pre = $pre.'../';
+
+	require ($pre.'../Modele/Carte.php');
+	require ($pre.'../Modele/Compte.php');
+	require ($pre.'../Modele/Element.php');
+	require ($pre.'../Modele/GenerationRequetes/select.php');
+	require ($pre.'../Modele/GenerationRequetes/delete.php');
+	require ($pre.'../Modele/GenerationRequetes/insert.php');
+	require ($pre.'../Modele/GenerationRequetes/update.php');
 	
 	class Controller
 	{
@@ -559,7 +563,7 @@
 		    return $n;
 		}
 
-		public function ajouterElement($nom, $valeur,$idPere)
+		/*public function ajouterElement($nom, $valeur,$idPere)
 		{
 			//Si le pere existe
 			if(creerRequeteAvecWhere(array("idElement"), "ELEMENT" , "idElement = ".$idPere)!='')
@@ -591,7 +595,7 @@
 				return false;
 			}
 					
-		}
+		}*/
 		
 		public function modifierValeurElement($idElt,$newValeur)
 		{
@@ -659,7 +663,7 @@
 	$t = new Controller();
 	$t->recuperationCarte(1);
 	$t->sauvegarderCarte();
-	echo "fin";
+	//echo "fin";
 	
 
 //	$testing->test();

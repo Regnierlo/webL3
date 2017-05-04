@@ -65,7 +65,9 @@ function afficheMajUtilisateurs()
     }
 }
 
-//fonction qui demande la mise à jour de la carte avec ajax
+/**
+ * fonction qui demande la mise à jour de la carte avec ajax
+ */
 function majPage()
 {
     //appel du script pour récupérer les données de la carte elle-même avec ajax

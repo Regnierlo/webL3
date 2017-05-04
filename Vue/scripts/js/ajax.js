@@ -1,6 +1,6 @@
 //Fichier qui contient toutes les fonctions spécifiques à l’utilisation d’Ajax
 
-var type_requete = 'get';
+var type_requete = 'post';
 
 //Création des l’objets XMLHttpREquest
 var objetXHR = new XMLHttpRequest();

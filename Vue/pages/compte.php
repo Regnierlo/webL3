@@ -6,10 +6,10 @@
         echo
             '<section id="infos">
                 <div class="gauche large_66">
-                    <div class="gauche marge-gauche large_50">Pseudonyme</div><div class="gauche large_50">'.$_SESSION['compte']['pseudo'].'</div>
-                    <div class="gauche marge-gauche large_50">Nom</div><div class="gauche large_50">'.$_SESSION['compte']['nom'].'</div>
-                    <div class="gauche marge-gauche large_50">Prénom</div><div class="gauche large_50">'.$_SESSION['compte']['prenom'].'</div>
-                    <div class="gauche marge-gauche large_50">E-mail</div><div class="gauche large_50">'.$_SESSION['compte']['email'].'</div>
+                    <div class="gauche marge-gauche large_50">Pseudonyme</div><div class="gauche large_50">'./*$_SESSION['compte']['pseudo']*/$compte->getLogin().'</div>
+                    <div class="gauche marge-gauche large_50">Nom</div><div class="gauche large_50">'./*$_SESSION['compte']['nom']*/$compte->getNom().'</div>
+                    <div class="gauche marge-gauche large_50">Prénom</div><div class="gauche large_50">'./*$_SESSION['compte']['prenom']*/$compte->getPrenom().'</div>
+                    <div class="gauche marge-gauche large_50">E-mail</div><div class="gauche large_50">'./*$_SESSION['compte']['email']*/$compte->getEMail().'</div>
                 </div>
                 <div class="gauche large_33">
                     <form method="'.$type_requete.'" action="scripts/php/creer_carte.php">

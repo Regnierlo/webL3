@@ -5,6 +5,10 @@
     //include_once $adresse_controleur;
     $controleur = $_SESSION['controleur'];
 
+    /** Affiche les cartes publiques pour la page accueil
+     * @param $type_requete le type de requête (post ou get)
+     * @param $controleur le contrôleur à utiliser
+     */
     function affiche_publiques($type_requete, $controleur)
     {
 
@@ -25,6 +29,11 @@
         }
     }
 
+    /** Affiche les cartes privées et partagées pour la page compte
+     * @param $type_requete le type de requête (post ou get)
+     * @param $roles le tableau des rôles
+     * @param $controleur le contrôleur à utiliser
+     */
     function affiche_compte($type_requete, $roles, $controleur)
     {
         //construction du tableau en vue de l’affichage

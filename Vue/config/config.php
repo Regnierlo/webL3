@@ -2,7 +2,7 @@
 
 <?php
 	//variables utiles
-	$type_requete = 'get';
+	$type_requete = 'post';
 	//$adresse_controleur = 'test/test.php';
 
     //insertion du contrôleur
