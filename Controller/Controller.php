@@ -240,27 +240,21 @@
 		
 		public function recuperationCartesPartagees($pseudo)
 		{
-			$res = creerRequeteAvecWhere(array("idCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Partage'");
+			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Partage'");
+			$resTab=explode("|",$res);
 			//On vérifie si le pseudo possede des cartes partagées
 			//Si c'est bon, on stocke les id et les noms des cartes
-			if($res != '')
+			
+			if($res!= "")
 			{
 				$tab = array();
-				$val ="";
-				for ($i=0;$i<strlen($res);$i++)
+				for ($i=0;$i<count($resTab);$i=$i+2)
 				{
-					if ($res[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res[$i];
-					}
+					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				$listeCartesPart = $val;
-				return true;
+				echo $tab[0]['Id'];
+				echo $tab[0]['Nom'];
+				return $tab;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
 			else
@@ -272,27 +266,23 @@
 		
 		public function recuperationCartesPubliques()
 		{
-			$res = creerRequeteAvecWhere(array("idCarte"),"v_CARTE","accessibilite = 'Public'");
-			if($res!='')
+			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","accessibilite = 'Public'");
+			$resTab=explode("|",$res);
+			//On vérifie si il y a des cartes publiques
+			//Si c'est bon, on stocke les id et les noms des cartes
+			
+			if($res!= "")
 			{
 				$tab = array();
-				$val ="";
-				for ($i=0;$i<strlen($res);$i++)
+				for ($i=0;$i<count($resTab);$i=$i+2)
 				{
-					if ($res[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res[$i];
-					}
+					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				$listeCartesPu1 = $val;
-				return true;
-			}	
-			//Retourne faux, si il y a un probleme
+				echo $tab[0]['Id'];
+				echo $tab[0]['Nom'];
+				return $tab;
+			}
+			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
 			else
 			{
 				return false;
