@@ -22,7 +22,7 @@
 		public function __construct()
 		{
 			$this->compte=null;
-			$this->carte=  new Carte(null,null,null,null,null,null,null,null,"Didier",null,null);//null;
+			$this->carte=  new Carte(null,null,null,null,null,null,null,null,null,null,null);
 			$this->listeCartesPriv=null;
 			$this->listeCartesPart=null;
 			$this->listeCartePub=null;			
@@ -110,15 +110,11 @@
 			//On retourne le fichier XML, Si la carte existe, on retourne le fichier XML, l'administrateur, le nom, les editeurs, les consultants, publique.
 			if($res <> "")
 			{
-                $tab = $this->requeteDansTableau($res);
-                //a compléter avec créateur et tout
-
-                $req = creerRequeteAvecWhere(array("idElement","nomElement","valeurElement","idElementPere","racine"),"ELEMENT","idCarteElement = ".$idCarte);
-                if ($req <> "")
+				$tab = $this->requeteDansTableau($res);
+				$req = creerRequeteAvecWhere(array("idElement","nomElement","valeurElement","idElementPere","racine"),"ELEMENT","idCarteElement = ".$idCarte);
+               			if ($req <> "")
 				{
-
 					$tableau = $this->requeteDansTableau($req);
-					
 					$xml = new DOMDocument("1.0","utf-8");
 					$racine=0;
 					for ($i=0;$i<count($tableau);$i++)
@@ -138,53 +134,40 @@
 							$tmp -> appendChild($attr2);							
 							$xml->appendChild($tmp);
 							$this->recursXml($tableau[$i][0],$tmp,$xml,$tableau);
-							
 						}
 					}
-					
-				
-					
 					$fichier_xml = $xml->saveXML();	
 					$req3 = creerRequeteAvecWhere(array("login","nomGroupe"),"v_LISTE_CARTE","idCarteListe = ".$idCarte);
 					$listeE = array();
 					$listeC = array();
-					
+
 					if($req3 <>"")
 					{	
-					
 						$listeLogin = $this->requeteDansTableau($req3);
-						
 						for ($i=0;$i<count($listeLogin);$i++) //Affectation des logins aux différentes listes
 							if ($listeLogin[$i][1] == "Editeur")
 								array_push($listeE,$listeLogin[$i][0]);
 							else if($listeLogin[$i][1] == "Consultant")
 								array_push($listeC,$listeLogin[$i][0]);
-								
-        				$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
-	                    				
-	                    				
+						$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
 						//return true;
 					}
-					/*else
-					{
-						//return false;
-					}*/
+					echo "NewCARTE créée";
 					$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin[0][0], $listeE, $listeC);
-					
 					return true; //ou retourner la carte
-
 				}
 				else
 				{
-                	return false;
+					return false;
 				}
 			}
 			//On retoune faux, si la carte n'existe pas
 			else
 			{
+				echo "la carte n'existe pas";
 				return false;
 			}
-			
+
 		}
 		
 		
@@ -613,8 +596,9 @@
 
 	
 	$t = new Controller();
-	$t->recuperationCarte(1);
-	$t->sauvegarderCarte();
+	//$t->recuperationCarte(1);
+	//$t->sauvegarderCarte();
+	$t->recuperationCartesPrivees("Didier");
 	//echo "fin";
 	
 
