@@ -216,60 +216,26 @@
 		
 		public function recuperationCartesPrivees($pseudo)
 		{
-			$res = creerRequeteAvecWhere(array("idCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
-			$res2 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Editeur'");
-			$res3 = creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE","login ='".$pseudo."' AND accessibilite = 'Consultant'");
+			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
+			$resTab=explode("|",$res);
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
-			if($res != '' || $res2 != '' || $res3 != '')
+			if($res!= "")
 			{
 				$tab = array();
-				$val ="";
-				for ($i=0;$i<strlen($res);$i++)
+				for ($i=0;$i<count($resTab);$i=$i+2)
 				{
-					if ($res[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res[$i];
-					}
+					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				for ($i=0;$i<strlen($res2);$i++)
-				{
-					if ($res2[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res2[$i];
-					}
-				}
-				for ($i=0;$i<strlen($res3);$i++)
-				{
-					if ($res3[$i] == "|")
-					{
-						array_push($tab,$val);
-						$val ="";
-					}
-					else
-					{
-						$val = $val."".$res3[$i];
-					}
-				}
-				$listeCartesPriv = $val;
-				return true;
+				echo $tab[0]['Id'];
+				echo $tab[0]['Nom'];
+				return $tab;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte privée ou si le pseudo est mauvais
 			else
 			{
 				return false;
 			}
-		
 		}
 		
 		public function recuperationCartesPartagees($pseudo)
