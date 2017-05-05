@@ -7,15 +7,16 @@
 
     //récupération sécurisée des champs
     $nom_carte = htmlentities($_REQUEST['saisie_nom_carte']);
-    var_dump($_REQUEST['saisie_nom_carte']);
+    $ok = $controleur->creationCarte($nom_carte, 'Prive');
+    var_dump($controleur);
 
-    $id = $controleur->creationCarte($nom_carte, 'Prive');
-    var_dump($id);
-
-    if ($id != false)
+    var_dump($ok);
+    if ($ok != false)
     {
         $_SESSION['template']['role'] = $roles['Admin'];
-        header("Location: ../../carte.php?carte=$id&nom_carte=$nom_carte");
+        $id = $controleur->getCarte()->getId();
+        var_dump($id);
+        header("Location: ../../carte.php?carte=$id");
     }
     else
     {

@@ -6,8 +6,9 @@
     {
         echo '<h1>'.$controleur->getCarte()->getNom().'</h1>';
         echo '<p>';
-        echo 'Création de la carte : '.$controleur->getCarte()->getDateCreation().'.<br/>';
-        echo 'Dernière modification : '.$controleur->getCarte()->getDateModification().'.<br/>';
+        echo 'Création de la carte : '.$controleur->getCarte()->getDateCreation().'<br/>';
+        echo 'Dernière modification : '.$controleur->getCarte()->getDateModification().'<br/>';
+        echo 'Carte '.$controleur->getCarte()->getAccessibilite().'<br/>';
         echo '</p>';
         echo '<section id="carte" class="';
                 if ($_SESSION['template']['role'] == $roles["Consultant"]) echo 'large_100'; else echo 'large_66';

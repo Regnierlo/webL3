@@ -11,19 +11,19 @@
      */
     function affiche_publiques($type_requete, $controleur)
     {
-
         //récupération des cartes
         $cartes = $controleur->recuperationCartesPubliques();
 
         //on trie dans le sens inverse des identifiants (le plus récent en premier)
         krsort($cartes);
+        var_dump($cartes);
 
         //affichage des cartes
         foreach ($cartes as $i => $carte)
         {
             echo '<form method="'.$type_requete.'" action="carte.php">';
             //echo   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
-            echo   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
+            echo   '<input type="hidden" name="carte" value="'.$carte["Id"]/*/$i*/.'""/>';
             echo   '<input class="champ carte-listee gauche arrondi fond-publique" type="submit" value="'.$carte["Nom"].'"/>';
             echo '</form>';
         }
@@ -44,6 +44,7 @@
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'privee';
         }
+
         //récupération des cartes partagées
         foreach ($controleur->recuperationCartesPartagees() as $i => $carte)
         {
@@ -82,7 +83,7 @@
             //affichage en lui-même
             echo '<form method="'.$type_requete.'" action="carte.php">';
             //echo   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
-            echo   '<input type="hidden" name="carte" value="'./*$carte["Id"]*/$i.'"/>';
+            echo   '<input type="hidden" name="carte" value="'.$carte["Id"]/*$i*/.'"/>';
             echo   '<input class="champ carte-listee gauche arrondi fond-'.$couleur_fond.'" type="submit" value="'.$carte["Nom"].'"/>';
             echo '</form>';
         }
