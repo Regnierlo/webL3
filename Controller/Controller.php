@@ -206,7 +206,7 @@
 			if($res!= "")
 			{
 				$tab = array();
-				for ($i=0;$i<count($resTab);$i=$i+2)
+				for ($i=0;$i<count($resTab)-1;$i=$i+2)
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
@@ -230,7 +230,7 @@
 			if($res!= "")
 			{
 				$tab = array();
-				for ($i=0;$i<count($resTab);$i=$i+2)
+				for ($i=0;$i<count($resTab)-1;$i=$i+2)
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
@@ -255,7 +255,7 @@
 			if($res!= "")
 			{
 				$tab = array();
-				for ($i=0;$i<count($resTab);$i=$i+2)
+				for ($i=0;$i<count($resTab)-1;$i=$i+2)
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
