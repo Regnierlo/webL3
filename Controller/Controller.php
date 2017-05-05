@@ -227,8 +227,7 @@
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				echo $tab[0]['Id'];
-				echo $tab[0]['Nom'];
+				$this->listeCartesPriv;
 				return $tab;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte privée ou si le pseudo est mauvais
@@ -252,8 +251,7 @@
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				echo $tab[0]['Id'];
-				echo $tab[0]['Nom'];
+				$this->listeCartesPart;
 				return $tab;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
@@ -278,8 +276,7 @@
 				{
 					$tab[] = array('Id' => $resTab[$i], 'Nom' => $resTab[$i+1]);
 				}
-				echo $tab[0]['Id'];
-				echo $tab[0]['Nom'];
+				$this->listeCartePub;
 				return $tab;
 			}
 			//On retoune faux, si le pseudo n'a aucune carte partagée ou si le pseudo est mauvais
