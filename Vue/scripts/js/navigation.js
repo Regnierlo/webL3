@@ -4,7 +4,10 @@
 
 var pages = {'Accueil': 0, 'Compte': 1, 'Carte': 2, 'Connexion': 3, 'Inscription': 4};
 
-//Fonction qui permet de changer de page, en passant le numéro de celle-ci
+/**
+ * Fonction qui permet de changer de page, en passant le numéro de celle-ci, cette fonction n’est plus utilisée
+ * @param page Numéro de la page à laquelle on veut accéder (doit être issu du tableau $pages)
+ */
 function changer_page(page)
 {
     var reponse = requete_ajax_synchrone("scripts/php/navigation.php", "page="+page);
@@ -19,8 +22,9 @@ function changer_page(page)
 //$('#navigation_compte').on('click', function(){changer_page(pages["Compte"]);});
 
 
-
-//Fonction qui renvoie à l’accueil
+/**
+ * Fonction qui envoie à la page accueil, utilisée depuis l’image de Listique en haut à gauche de la page
+ */
 function aller_accueil()
 {
     $(location).attr('href', 'accueil.php');

@@ -37,7 +37,11 @@
             case 'creer_fils' :
                 if (isset($_REQUEST['id_pere']))
                 {
-                    if ($controleur->ajouterElement($_REQUEST['id_pere']))
+                    var_dump($_REQUEST['id_pere']);
+                    $pere = $_REQUEST['id_pere'];
+                    if ($pere == 'undefined' && $controleur->getCarte()->getCmpE() == 0)
+                        $pere = 'Administrateur';
+                    if ($controleur->ajouterElement($pere))
                         echo $_REQUEST['action'];
                     else
                         echo 'erreur';

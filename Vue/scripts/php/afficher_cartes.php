@@ -16,7 +16,6 @@
 
         //on trie dans le sens inverse des identifiants (le plus récent en premier)
         krsort($cartes);
-        var_dump($cartes);
 
         //affichage des cartes
         foreach ($cartes as $i => $carte)
@@ -38,18 +37,21 @@
     {
         //construction du tableau en vue de l’affichage
         $cartes = array();
+        $i = 0;
         //récupération des cartes privées
-        foreach ($controleur->recuperationCartesPrivees() as $i => $carte)
+        foreach ($controleur->recuperationCartesPrivees() as $carte)
         {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'privee';
+            $i++;
         }
 
         //récupération des cartes partagées
-        foreach ($controleur->recuperationCartesPartagees() as $i => $carte)
+        foreach ($controleur->recuperationCartesPartagees() as $carte)
         {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'partagee';
+            $i++;
         }
 
         //on trie dans le sens inverse des identifiants (le plus récent en premier)

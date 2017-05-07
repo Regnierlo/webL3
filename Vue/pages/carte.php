@@ -28,15 +28,19 @@
                     <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
                 </section>
                 <section id="administration">
-                    <p>Gérer les droits et la carte</p>
-                    <table id="utilisateurs" class="large_100">';
-            include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
-            echo   '</table>
-                    <input id="coche-publique" class="champ gauche large_50 arrondi fond-violet" type="checkbox" value="Publique"/>
-                    <input id="coche-privee" class="champ gauche large_50 arrondi fond-violet" type="checkbox" value="Privée"/>
-                    <input id="saisie-pseudo-partage" class="champ gauche large_50 arrondi fond-violet" type="text"/>
-                    <input id="partager-carte" class="champ gauche large_50 arrondi fond-violet" type="button" value="Partager"/>
-                    <input id="saisie-nom-carte" class="champ gauche large_50 arrondi fond-violet" type="text"/>
+                    <p>Gérer ';if ($controleur->getCarte()->getAccessibilite() != 'Public') echo 'les droits et'; echo ' la carte</p>';
+            if ($controleur->getCarte()->getAccessibilite() != 'Public') {
+                echo '<table id="utilisateurs" class="large_100">';
+                include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
+                echo '</table>';
+            }
+            echo    '< input id = "coche-publique" class="champ gauche large_50 arrondi fond-violet" type = "checkbox" value = "Publique" />';
+            if ($controleur->getCarte()->getAccessibilite() != 'Public')
+            {
+                echo '< input id = "saisie-pseudo-partage" class="champ gauche large_50 arrondi fond-violet" type = "text" />
+                    <input id = "partager-carte" class="champ gauche large_50 arrondi fond-violet" type = "button" value = "Partager" />';
+            }
+                echo '<input id="saisie-nom-carte" class="champ gauche large_50 arrondi fond-violet" type="text"/>
                     <input id="renommer-carte" class="champ gauche large_50 arrondi fond-violet" type="button" value="Renommer"/>
                     <input id="supprimer-carte" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer carte"/>
                 </section>
@@ -53,14 +57,18 @@
                     <input id="ajouter-fils" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un fils"/>
                     <input id="ajouter-frere" class="champ large_100 arrondi fond-violet" type="button" value="Ajouter un frère"/>
                     <input id="supprimer" class="champ large_100 arrondi fond-violet" type="button" value="Supprimer"/>
-                </section>
-                <section id="administration">
-                    <p>Liste des utilisateurs ayant des droits</p>
-                    <table id="utilisateurs" class="large_100">';
-            include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
-            echo   '</table>
-                </section>
-            </div>';
+                </section>';
+            if ($controleur->getCarte()->getAccessibilite() != 'Public')
+            {
+                echo '    
+                    <section id="administration">
+                        <p>Liste des utilisateurs ayant des droits</p>
+                        <table id="utilisateurs" class="large_100">';
+                include_once 'scripts/php/afficher_utilisateurs.php?maj=vrai';//solution moisie mais… mais j’ai pas le choix voilà
+                echo '</table>
+                    </section>';
+            }
+            echo'</div>';
         }
     }
 ?>

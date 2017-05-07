@@ -3,7 +3,10 @@
 //variable qui mémorise l’identifiant de l’élément sélectionné
 var id_gen;
 
-//fonction qui sélectionne un élément (surlignement et stockage la valeur)
+/**
+ * Fonction qui sélectionne un élément (mise en valeur et stockage de la valeur)
+ * @param id Id de l’élément sélectionné
+ */
 function selectElt(id)
 {
     //var id = elt.getAttribute('id');
@@ -20,9 +23,9 @@ function selectElt(id)
 //ajout de l’action sur les éléments de la carte
 $('.element-carte').on('click', function(){selectElt(this.getAttribute('id'));return false;/*e.stopPropagation();*/});
 
-
-
-//fonction qui affiche la carte mise à jour en réponse à ajax
+/**
+ * Fonction qui affiche la carte mise à jour en réponse à ajax
+ */
 function afficheMajCarte()
 {
     if (objetXHRasynchrone.readyState == 4)
@@ -37,7 +40,9 @@ function afficheMajCarte()
     }
 }
 
-//fonction qui affiche les utilisateurs mis à jour en répons à ajax
+/**
+ * Fonction qui affiche les utilisateurs mis à jour en réponse à ajax
+ */
 function afficheMajUtilisateurs()
 {
     if (objetXHRasynchrone.readyState == 4)
@@ -82,7 +87,10 @@ setInterval(majPage, 5000);
 //toute la partie édition
 //////////////////////////////////////
 
-//changement du nom de l’élément sélectionné
+/**
+ * Changement du nom de l’élément sélectionné
+ * @param nom Nouveau nom
+ */
 function renommerElt(nom)
 {
     alert("changer nom " + nom);
@@ -96,7 +104,9 @@ $('#renommer').on('click', function()
     renommerElt($('#saisie-nom-elt').val());
 });
 
-//création d’un fils pour l’élément sélectionné
+/**
+ * Création d’un fils pour l’élément sélectionné
+ */
 function creerFils() {
     alert("créer fils ");
     var id_pere = id_gen;
@@ -109,7 +119,9 @@ function creerFils() {
 }
 $('#ajouter-fils').on('click', creerFils);
 
-//création d’un frère pour l’élément sélectionné (il sera ajouter en dernier élément du père)
+/**
+ * Création d’un frère pour l’élément sélectionné (il sera ajouté en dernier élément du père)
+ */
 function creerFrere()
 {
     alert("créer frère ");
@@ -122,7 +134,9 @@ function creerFrere()
 }
 $('#ajouter-frere').on('click', creerFrere);
 
-//suppression de l’élément sélectionné
+/**
+ * Suppression de l’élément sélectionné
+ */
 function supprimerElt()
 {
     alert("supprimer élément ");
@@ -141,7 +155,10 @@ function ajouterEdition(pseudo)
     majPage();
 }
 
-//suppression du droit d’édition
+/**
+ * Suppression du droit d’édition pour l’utilisateur spécifié
+ * @param pseudo Pseudo de l’utilisateur auquel on veut retirer le droit d’édition
+ */
 function supprimerEdition(pseudo)
 {
     alert("supprimer édition " + pseudo);
@@ -161,7 +178,10 @@ $('.autoriser-edition').on('click', function()
 
 });
 
-//partage avec un utilisateur de la carte
+/**
+ * Partage avec un utilisateur de la carte
+ * @param pseudo Pseudo de l’utilisateur auquel on veut partager
+ */
 function partager(pseudo)
 {
     alert("partager " + pseudo);
@@ -175,7 +195,10 @@ $('#partager-carte').on('click', function(e)
     partager($('#saisie-pseudo-partage').val());
 });
 
-//arrêter le partage de la carte avec un utilisateur
+/**
+ * Arrêter le partage de la carte avec un utilisateur
+ * @param pseudo Pseudo de l’utilisateur avec lequel ont ne veut plus partager
+ */
 function arreterPartage(pseudo)
 {
     alert("arrêter partage " + pseudo);
@@ -191,7 +214,10 @@ $('.retirer-partage').on('click', function(e)
         arreterPartage(this.value);
 });
 
-//renommer la carte
+/**
+ * Renommer la carte
+ * @param nom Nouveau nom de la carte
+ */
 function renommerCarte(nom)
 {
     alert("changer nom carte " + nom);
@@ -205,7 +231,9 @@ $('#renommer-carte').on('click', function()
     renommerCarte($('#saisie-nom-carte').val());
 });
 
-//supprimer la carte
+/**
+ * Supprimer la carte
+ */
 function supprimerCarte()
 {
     alert("supprimer carte ");

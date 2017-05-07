@@ -1,5 +1,9 @@
 <?php
-    //recherche le rôle de l’utilisateur pour la carte que l’on veut afficher (à corriger)
+    /** Recherche le rôle de l’utilisateur pour la carte que l’on veut afficher
+     * @param $roles Tableau des rôles
+     * @param $controleur Contrôleur à utiliser
+     *
+     */
     function definirRole($roles, $controleur)
     {
         //$donnees = $_SESSION['carte']['donnees'];

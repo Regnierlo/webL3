@@ -38,8 +38,8 @@ function verifPseudo(champ)
   if(champ.value.length < 4 || champ.value.length > 20)
   {
     surligne(champ, true);
+    return false;
   }
-  return false;
   else
   {
     surligne(champ, false)
@@ -52,8 +52,8 @@ function verifMotdePasse(champ)
   if(champ.value.length <4 || champ.value.length > 8)
   {
     surligne(champ, true);
+    return false;
   }
-  return false;
   else
   {
     surligne(champ, false)

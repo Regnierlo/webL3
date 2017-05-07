@@ -18,6 +18,8 @@
         <?php
             if ($_SESSION['template']['page'] == $pages['Carte'])
                 echo '<script type="text/javascript" src="scripts/js/carte.js"></script>';
+            if ($_SESSION['template']['page'] == $pages['Inscription'] || $_SESSION['template']['page'] == $pages['Connexion'])
+                echo '<script type="text/javascript" src="scripts/js/formulaire.js"></script>';
         ?>
 	</body>
 </html>
