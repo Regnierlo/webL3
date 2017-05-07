@@ -194,7 +194,10 @@
 		public function recuperationCartesPrivees($pseudo)
 		{
 			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
+			$trans = array("<br/>" => "");
+			$res = strtr($res, $trans);
 			$resTab=explode("|",$res);
+			
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
 			if($res!= "")
@@ -217,7 +220,8 @@
 		public function recuperationCartesPartagees($pseudo)
 		{
 			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Partage'");
-			var_dump($res);
+			$trans = array("<br/>" => "");
+			$res = strtr($res, $trans);
 			$resTab=explode("|",$res);
 			//On vérifie si le pseudo possede des cartes partagées
 			//Si c'est bon, on stocke les id et les noms des cartes
@@ -243,6 +247,8 @@
 		public function recuperationCartesPubliques()
 		{
 			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","accessibilite = 'Public'");
+			$trans = array("<br/>" => "");
+			$res = strtr($res, $trans);
 			$resTab=explode("|",$res);
 			//On vérifie si il y a des cartes publiques
 			//Si c'est bon, on stocke les id et les noms des cartes
@@ -597,12 +603,12 @@
 
 
 	
-	//$t = new Controller();
-	//$t->connexion("Didier", "Jean");
+	$t = new Controller();
+	$t->connexion("Didier", "Jean");
 	//$t->creationCarte("Macarte","Prive");
 	//echo $t->getCarte()->getId();
 	//$t->sauvegarderCarte();
-	//$t->recuperationCartesPrivees("Didier");
+	$t->recuperationCartesPrivees("Didier");
 	//echo "fin";
 	
 
