@@ -112,11 +112,12 @@
 			{
 				$tab = $this->requeteDansTableau($res);
 				$req = creerRequeteAvecWhere(array("idElement","nomElement","valeurElement","idElementPere","racine"),"ELEMENT","idCarteElement = ".$idCarte);
+               			$xml = new DOMDocument("1.0","utf-8");
+				$racine=0;
+				//Si la carte contient des elements
                			if ($req <> "")
 				{
 					$tableau = $this->requeteDansTableau($req);
-					$xml = new DOMDocument("1.0","utf-8");
-					$racine=0;
 					for ($i=0;$i<count($tableau);$i++)
 					{
 						if ($tableau[$i][4]=="Administrateur")
@@ -136,29 +137,24 @@
 							$this->recursXml($tableau[$i][0],$tmp,$xml,$tableau);
 						}
 					}
-					$fichier_xml = $xml->saveXML();	
-					$req3 = creerRequeteAvecWhere(array("login","nomGroupe"),"v_LISTE_CARTE","idCarteListe = ".$idCarte);
-					$listeE = array();
-					$listeC = array();
-
-					if($req3 <>"")
-					{	
-						$listeLogin = $this->requeteDansTableau($req3);
-						for ($i=0;$i<count($listeLogin);$i++) //Affectation des logins aux différentes listes
-							if ($listeLogin[$i][1] == "Editeur")
-								array_push($listeE,$listeLogin[$i][0]);
-							else if($listeLogin[$i][1] == "Consultant")
-								array_push($listeC,$listeLogin[$i][0]);
-						$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
-						//return true;
-					}
-					$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin[0][0], $listeE, $listeC);
-					return true; //ou retourner la carte
 				}
-				else
-				{
-					return false;
+				$fichier_xml = $xml->saveXML();	
+				$req3 = creerRequeteAvecWhere(array("login","nomGroupe"),"v_LISTE_CARTE","idCarteListe = ".$idCarte);
+				$listeE = array();
+				$listeC = array();
+				//Si le login existe
+				if($req3 <>"")
+				{	
+					$listeLogin = $this->requeteDansTableau($req3);
+					for ($i=0;$i<count($listeLogin);$i++) //Affectation des logins aux différentes listes
+						if ($listeLogin[$i][1] == "Editeur")
+							array_push($listeE,$listeLogin[$i][0]);
+						else if($listeLogin[$i][1] == "Consultant")
+							array_push($listeC,$listeLogin[$i][0]);
+					$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
 				}
+				$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin[0][0], $listeE, $listeC);
+				return true;
 			}
 			//On retoune faux, si la carte n'existe pas
 			else
@@ -198,7 +194,6 @@
 		public function recuperationCartesPrivees($pseudo)
 		{
 			$res = creerRequeteAvecWhere(array("idCarte","nomCarte"),"v_CARTE","login ='".$pseudo."' AND accessibilite = 'Prive'");
-			var_dump($res);
 			$resTab=explode("|",$res);
 			//On vérifie si le pseudo possede des cartes privées
 			//Si c'est bon, on stocke les id et les noms des cartes
@@ -275,7 +270,7 @@
 			{
 				insertNewCarte($nom,$accessibilite,$this->compte->getLogin());
 				$idC=explode("|",(creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1")));
-				recuperationCarte($idC[0]);
+				$this->recuperationCarte($idC[0]);
 				return true;
 			}
 			else
@@ -602,12 +597,12 @@
 
 
 	
-	$t = new Controller();
-	$t->connexion("Didier", "Jean");
-//	$t->recuperationCarte(56);
-	//$t->creationCarte("TestDidier","Prive");
+	//$t = new Controller();
+	//$t->connexion("Didier", "Jean");
+	//$t->creationCarte("Macarte","Prive");
+	//echo $t->getCarte()->getId();
 	//$t->sauvegarderCarte();
-	$t->recuperationCartesPrivees("Didier");
+	//$t->recuperationCartesPrivees("Didier");
 	//echo "fin";
 	
 
