@@ -152,7 +152,6 @@
 						$admin = $this->requeteDansTableau(creerRequeteAvecWhere(array("login"),"v_LISTE_CARTE", "idCarteListe =".$idCarte." AND nomGroupe = \"Administrateur\""));
 						//return true;
 					}
-					echo "NewCARTE créée";
 					$this->carte = new Carte($idCarte, $tab[0][0], $tab[0][1], $tab[0][2], $tab[0][3],count($tableau), $fichier_xml,  $racine, $admin[0][0], $listeE, $listeC);
 					return true; //ou retourner la carte
 				}
@@ -164,7 +163,6 @@
 			//On retoune faux, si la carte n'existe pas
 			else
 			{
-				echo "la carte n'existe pas";
 				return false;
 			}
 
@@ -271,10 +269,13 @@
 		
 		public function creationCarte($nom,$accessibilite)
 		{
-			insertNewCarte($nom,$accessibilite,$this->compte->getLogin());
-			$idC=explode("|",(creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1")));
-			recuperationCarte($idC[0]);
-			return true;
+			if($this->compte != null)
+			{
+				insertNewCarte($nom,$accessibilite,$this->compte->getLogin());
+				$idC=explode("|",(creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1")));
+				recuperationCarte($idC[0]);
+				return true;
+			}
 		}
 		
 		public function renommerCarte($idCarte, $nNom)
@@ -492,7 +493,7 @@
 		    }
 		    if ($val == "")
         		array_push($tab,"null");
-        	else
+		else
             	array_push($tab,$val);
 		    array_push($n,$tab);
 		    return $n;
@@ -595,10 +596,12 @@
 
 
 	
-	$t = new Controller();
-	//$t->recuperationCarte(1);
+//	$t = new Controller();
+//	$t->connexion("Didier", "Jean");
+//	$t->recuperationCarte(56);
+	//$t->creationCarte("TestDidier","Prive");
 	//$t->sauvegarderCarte();
-	$t->recuperationCartesPrivees("Didier");
+	//$t->recuperationCartesPrivees("Didier");
 	//echo "fin";
 	
 
