@@ -22,7 +22,7 @@
         {
             echo '<form method="'.$type_requete.'" action="carte.php">';
             //echo   '<input type="hidden" name="nom_carte" value="'.$carte["Nom"].'"/>';
-            echo   '<input type="hidden" name="carte" value="'.$carte["Id"]/*/$i*/.'""/>';
+            echo   '<input type="hidden" name="carte" value="'.$carte["Id"]/*/$i*/.'"/>';
             echo   '<input class="champ carte-listee gauche arrondi fond-publique" type="submit" value="'.$carte["Nom"].'"/>';
             echo '</form>';
         }
@@ -39,15 +39,14 @@
         $cartes = array();
         $i = 0;
         //récupération des cartes privées
-        foreach ($controleur->recuperationCartesPrivees() as $carte)
-        {
+        foreach ($controleur->recuperationCartesPrivees($controleur->getCompte()->getLogin()) as $carte) {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'privee';
             $i++;
         }
 
         //récupération des cartes partagées
-        foreach ($controleur->recuperationCartesPartagees() as $carte)
+        foreach ($controleur->recuperationCartesPartagees($controleur->getCompte()->getLogin()) as $carte)
         {
             $cartes[$i] = $carte;
             $cartes[$i]['Type'] = 'partagee';

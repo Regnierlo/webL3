@@ -6,7 +6,7 @@
 		<link href="style/style.css" rel="stylesheet" media="all" type="text/css">
         <link href="style/mini_responsive.css" rel="stylesheet" media="all" type="text/css">
 	</head>
-	<body class="fond-rose">
+	<body class="fond-page">
 
 		<header class="fond-violet">
 			<?php include_once("entete.php");?>

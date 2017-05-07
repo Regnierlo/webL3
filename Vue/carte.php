@@ -10,7 +10,11 @@
     //unset($_SESSION['carte']);
     $_SESSION['template']['role'] = $roles['Interdit'];
 
-    //recherche le rôle de l’utilisateur pour la carte que l’on veut afficher (à corriger)
+    /** Recherche le rôle de l’utilisateur pour la carte que l’on veut afficher
+     * @param $roles Tableau des rôles
+     * @param $controleur Contrôleur à utiliser
+     *
+     */
     function definirRole($roles, $controleur)
     {
         //$donnees = $_SESSION['carte']['donnees'];
@@ -24,7 +28,7 @@
         }
         else
         {
-            $pseudo = $_SESSION['compte']['pseudo'];
+            $pseudo = $controleur->getCompte()->getLogin();
             if ($carte->getAdmin() == $pseudo)
                 $_SESSION['template']['role'] = $roles['Admin'];
             elseif ($publique == true || array_search($pseudo, $carte->getListeEditeur()) != false || $carte->getListeEditeur()[0] == $pseudo)

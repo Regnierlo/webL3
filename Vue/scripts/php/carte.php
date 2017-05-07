@@ -1,7 +1,8 @@
-<!--script php qui gère la sélection d’un élément, il sert simplement à changer la variable de session qui stocke l’élément sélectionné-->
+<!--script php qui gère toutes les opérations qui peuvent se faire sur la page carte-->
 
 <?php
     header('Content-Type: text/plain');
+    var_dump($_REQUEST);
     if (isset($_REQUEST['action']))
     {
         //inclusion du contrôleur

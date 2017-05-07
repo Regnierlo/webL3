@@ -13,16 +13,16 @@
         if ($_SESSION['template']['connecte'] == false)
         {
             if ($publique == 'Public')
-                $_SESSION['template']['role'] = $roles['Consultant'];
+                $_SESSION['template']['role'] = $roles['Editeur'];
         }
         else
         {
             $pseudo = $_SESSION['compte']['pseudo'];
             if ($carte->getAdmin() == $pseudo)
                 $_SESSION['template']['role'] = $roles['Admin'];
-            elseif (array_search($pseudo, $carte->getListeEditeur()) != false || $carte->getListeEditeur()[0] == $pseudo)
+            elseif ($publique == true || array_search($pseudo, $carte->getListeEditeur()) != false || $carte->getListeEditeur()[0] == $pseudo)
                 $_SESSION['template']['role'] = $roles['Editeur'];
-            elseif ($publique == true || array_search($pseudo, $carte->getListeConsultant()) != false|| $carte->getListeConsultant()[0] == $pseudo)
+            elseif (array_search($pseudo, $carte->getListeConsultant()) != false|| $carte->getListeConsultant()[0] == $pseudo)
                 $_SESSION['template']['role'] = $roles['Consultant'];
         }
     }
