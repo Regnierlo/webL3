@@ -604,11 +604,14 @@
 
 	
 	$t = new Controller();
-	$t->connexion("Didier", "Jean");
+	$t->connexion("test", "test");
+	$t->recuperationCarte(1);
+	echo $t->getCarte()->getXml_doc();
+	//var_dump($t->getCarte()->getXml_doc());
 	//$t->creationCarte("Macarte","Prive");
 	//echo $t->getCarte()->getId();
 	//$t->sauvegarderCarte();
-	$t->recuperationCartesPrivees("Didier");
+	//$t->recuperationCartesPrivees("Didier");
 	//echo "fin";
 	
 
