@@ -273,7 +273,7 @@
 		{
 			insertNewCarte($nom,$accessibilite,$this->compte->getLogin());
 			$idC=explode("|",(creerRequeteAvecWhere(array("idCarteListe"),"v_LISTE_CARTE", "login='".$this->compte->getLogin()."' ORDER BY idCarteListe DESC LIMIT 1")));
-			$this->carte=recuperationCarte($idC[0]);	
+			recuperationCarte($idC[0]);
 			return true;
 		}
 		
