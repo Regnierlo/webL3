@@ -1,3 +1,5 @@
+<!--affiche les utilisateurs d’une carte sur la page de celle-ci->
+
 <?php
     /** Recherche le rôle de l’utilisateur pour la carte que l’on veut afficher
      * @param $roles Tableau des rôles
@@ -65,43 +67,45 @@
 
     //affichage des éditeurs
     //foreach ($donnees[$roles['Editeur']] as $utilisateur)
-    foreach ($carte->getListeEditeur() as $utilisateur)
-    {
-        if ($_SESSION['template']['role'] == $roles['Admin'])
+    if ($carte->getListeEditeur() != null)
+        foreach ($carte->getListeEditeur() as $utilisateur)
         {
-            echo   '<tr><!--ligne de gestion des droits pour un administrateur-->
-                        <td>';echo $utilisateur;echo'</td>
-                        <td class="centre"><input class="autoriser-edition" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
-                        <td class="centre"><input class="retirer-partage" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
-                    </tr>';
+            if ($_SESSION['template']['role'] == $roles['Admin'])
+            {
+                echo   '<tr><!--ligne de gestion des droits pour un administrateur-->
+                            <td>';echo $utilisateur;echo'</td>
+                            <td class="centre"><input class="autoriser-edition" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
+                            <td class="centre"><input class="retirer-partage" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
+                        </tr>';
+            }
+            elseif ($_SESSION['template']['role'] == $roles['Editeur'])
+            {
+                echo   '<tr><!--ligne de visualisation des droits pour un éditeur-->
+                            <td>';echo $utilisateur;echo'</td>
+                            <td class="centre"><input disabled="disabled" type="checkbox" checked="checked"/></td>
+                        </tr>';
+            }
         }
-        elseif ($_SESSION['template']['role'] == $roles['Editeur'])
-        {
-            echo   '<tr><!--ligne de visualisation des droits pour un éditeur-->
-                        <td>';echo $utilisateur;echo'</td>
-                        <td class="centre"><input disabled="disabled" type="checkbox" checked="checked"/></td>
-                    </tr>';
-        }
-    }
 
     //affichage des consultants
     //foreach ($donnees[$roles['Consultant']] as $utilisateur)
-    foreach ($carte->getListeConsultant() as $utilisateur)
-    {
-        if ($_SESSION['template']['role'] == $roles['Admin'])
+    if ($carte->getListeConsultant() != null)
+        foreach ($carte->getListeConsultant() as $utilisateur)
         {
-            echo   '<tr><!--ligne de gestion des droits pour un administrateur-->
-                        <td>';echo $utilisateur;echo'</td>
-                        <td class="centre"><input class="autoriser-edition" type="checkbox" value="';echo $utilisateur;echo'"/></td>
-                        <td class="centre"><input class="retirer-partage" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
-                    </tr>';
+            if ($_SESSION['template']['role'] == $roles['Admin'])
+            {
+                echo   '<tr><!--ligne de gestion des droits pour un administrateur-->
+                            <td>';echo $utilisateur;echo'</td>
+                            <td class="centre"><input class="autoriser-edition" type="checkbox" value="';echo $utilisateur;echo'"/></td>
+                            <td class="centre"><input class="retirer-partage" type="checkbox" value="';echo $utilisateur;echo'" checked="checked"/></td>
+                        </tr>';
+            }
+            elseif ($_SESSION['template']['role'] == $roles['Editeur'])
+            {
+                echo   '<tr><!--ligne de visualisation des droits pour un éditeur-->
+                            <td>';echo $utilisateur;echo'</td>
+                            <td class="centre"><input disabled="disabled" type="checkbox"/></td>
+                        </tr>';
+            }
         }
-        elseif ($_SESSION['template']['role'] == $roles['Editeur'])
-        {
-            echo   '<tr><!--ligne de visualisation des droits pour un éditeur-->
-                        <td>';echo $utilisateur;echo'</td>
-                        <td class="centre"><input disabled="disabled" type="checkbox"/></td>
-                    </tr>';
-        }
-    }
 ?>

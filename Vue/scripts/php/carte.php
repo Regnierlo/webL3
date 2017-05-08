@@ -2,7 +2,6 @@
 
 <?php
     header('Content-Type: text/plain');
-    var_dump($_REQUEST);
     if (isset($_REQUEST['action']))
     {
         //inclusion du contrôleur
@@ -127,6 +126,4 @@
     }
     else
         echo 'erreur';
-
-
 ?>

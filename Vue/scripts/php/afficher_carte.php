@@ -24,16 +24,23 @@
         $xslDoc->load('../xsl/carte.xsl');
 
     //Récupération du doc xml
-    $controleur->recuperationCarte($controleur->getCarte()->getId());
-    $xmlDoc = simplexml_load_string($controleur->getCarte()->getXml_doc());
-    //$xmlDoc = simplexml_load_string($controleur->recup_carte($_SESSION['carte']['id']));
-    //$xmlDoc = new DOMDocument();
-    //$xmlDoc->load('test/test.xml');
+    $res = $controleur->recuperationCarte($controleur->getCarte()->getId());
+    //si la carte est correctement générée
+    if ($res)
+    {
+        $xmlDoc = new DOMDocument();
+        $xmlDoc = simplexml_load_string($controleur->getCarte()->getXml_doc());
+        //$xmlDoc = simplexml_load_string($controleur->recup_carte($_SESSION['carte']['id']));
+        //$xmlDoc = new DOMDocument();
+        //$xmlDoc->load('test/test.xml');
 
-    //Application du doc xsl
-    $proc = new XSLTProcessor();
-    $proc->importStylesheet($xslDoc);
+        //Application du doc xsl
+        $proc = new XSLTProcessor();
+        $proc->importStylesheet($xslDoc);
 
-    //Transformation et affichage
-    echo $proc->transformToXML($xmlDoc);
+        //Transformation et affichage
+        echo $proc->transformToXml($xmlDoc);
+    }
+    else
+        echo 'erreur';
 ?>

@@ -603,10 +603,10 @@
 
 
 	
-	$t = new Controller();
-	$t->connexion("test", "test");
-	$t->recuperationCarte(1);
-	echo $t->getCarte()->getXml_doc();
+	//$t = new Controller();
+	//$t->connexion("test", "test");
+	//$t->recuperationCarte(1);
+	//echo $t->getCarte()->getXml_doc();
 	//var_dump($t->getCarte()->getXml_doc());
 	//$t->creationCarte("Macarte","Prive");
 	//echo $t->getCarte()->getId();

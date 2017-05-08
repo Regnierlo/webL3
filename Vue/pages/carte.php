@@ -14,7 +14,7 @@
         echo '<section id="carte" class="';
                 if ($_SESSION['template']['role'] == $roles["Consultant"]) echo 'large_100'; else echo 'large_66';
                 echo ' gauche fond-listique">';
-            include_once 'scripts/php/afficher_carte.php';
+            include 'scripts/php/afficher_carte.php';
         echo '</section>';
         if ($_SESSION['template']['role'] == $roles["Admin"] && $_SESSION["template"]["connecte"] == true)
         {

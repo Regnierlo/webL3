@@ -5,14 +5,14 @@
 
     <xsl:template match="/">
         <div id="contenu-carte">
-            <xsl:apply-templates select="elt"/>
+            <xsl:apply-templates select="element"/>
         </div>
     </xsl:template>
 
-    <xsl:template match="elt">
+    <xsl:template match="element">
         <div id="{@id}" class="element-carte">
             <xsl:value-of select="@valeur"/>
-            <xsl:apply-templates select="elt"/>
+            <xsl:apply-templates select="element"/>
         </div>
     </xsl:template>
 

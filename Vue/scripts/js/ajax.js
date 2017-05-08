@@ -45,9 +45,9 @@ function requete_ajax_asynchrone(script, parametres, fonction_traitement)
 
     //Création de la requête http de type "type_requete" au script php "script" et en mode asynchrone
     if (type_requete == 'get')
-        objetXHRasynchrone.open(type_requete, script+"?"+parametres, false);
+        objetXHRasynchrone.open(type_requete, script+"?"+parametres, true);
     else
-        objetXHRasynchrone.open(type_requete, script, false);
+        objetXHRasynchrone.open(type_requete, script, true);
 
     //Envoi de la requête
     if (type_requete == 'get')
